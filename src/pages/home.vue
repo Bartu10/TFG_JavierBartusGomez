@@ -9,9 +9,8 @@ export default {
     async callOrder(){
     try{
         const response = await fetch('http://localhost:3000/create',{
-            method:"GET",
+            method:"POST"
         });
-        console.log(response)
         const data = await response.json();
         console.log(data.links[1].href)
         window.location.href = data.links[1].href

@@ -17,3 +17,9 @@ npm run build
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
+
+
+javi@classicshirt.com
+pTkT5/oU
+comprador@classicshirt.com
+FM9&fsP]
