@@ -8,11 +8,18 @@ export default {
  methods: {
     async callOrder(){
     try{
+        let dato = {value : 30,
+            description: "Buen Producto"
+        }
         const response = await fetch('http://localhost:3000/create',{
-            method:"POST"
+            method:"POST",
+            headers:{
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(dato)
         });
+        
         const data = await response.json();
-        console.log(data.links[1].href)
         window.location.href = data.links[1].href
     }
     catch (error) {
