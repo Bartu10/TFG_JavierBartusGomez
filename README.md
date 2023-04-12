@@ -23,3 +23,10 @@ javi@classicshirt.com
 pTkT5/oU
 comprador@classicshirt.com
 FM9&fsP]
+
+
+
+Ideas: 
+Ruleta de Descuentos diario, si te toca que se guarden 5 dias
+Verificacion por SMS/Correo
+Comentarios
