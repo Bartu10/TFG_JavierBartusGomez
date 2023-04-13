@@ -8,8 +8,8 @@ export default {
  methods: {
     async callOrder(){
     try{
-        let dato = {value : 30,
-            description: "Buen Producto"
+        let dato = {value : 100,
+            description: "uigfuifgew"
         }
         const response = await fetch('http://localhost:3000/create',{
             method:"POST",
