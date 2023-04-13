@@ -1,20 +1,24 @@
 <template>
 <ul>
-  <li><a class="active" href="#home">Home</a></li>
-  <li><a href="#news">News</a></li>
+  <li><a @click="this.$router.push('/')">Home</a></li>
+  <li><a @click="this.$router.push('/login')">Login</a></li>
   <li><a href="#contact">Contact</a></li>
   <li><a href="#about">About</a></li>
 </ul>
 
 </template>
 
-<style scoped>
+<style lang="scss" scoped>
+@import '../scss/global.scss';
+
+
 ul {
+  
   list-style-type: none;
   margin: 0;
   padding: 0;
   overflow: hidden;
-  background-color: #333;
+  background-color: $principalGreen;
 }
 
 li {
@@ -25,7 +29,7 @@ li a {
   display: block;
   color: white;
   text-align: center;
-  padding: 14px 16px;
+  padding: 20px 18px;
   text-decoration: none;
 }
 

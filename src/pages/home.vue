@@ -1,31 +1,57 @@
 <template>
-    <h2>Buenas</h2>
-    <button @click="callOrder">Click</button>
+    <div class="main">
+        <div class="first">
+        <span>
+            first
+        </span>
+        </div>
+        <div class="second">
+        <span>
+            second
+        </span>
+    </div>
+        <div class="third">
+        <span>
+            third
+        </span>
+        </div>
+    </div>
 </template>
 
-<script>
-export default {
- methods: {
-    async callOrder(){
-    try{
-        let dato = {value : 100,
-            description: "uigfuifgew"
-        }
-        const response = await fetch('http://localhost:3000/create',{
-            method:"POST",
-            headers:{
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(dato)
-        });
-        
-        const data = await response.json();
-        window.location.href = data.links[1].href
-    }
-    catch (error) {
-        console.error(error)
-    }
+
+
+<style scoped>
+.first{grid-area: first;
+background-color: rgba(255, 255, 255, 0.5);
+margin-top:20rem;
+margin-left:15rem;
+margin-right: 15rem;
 }
+.second{grid-area: second;
+    background-color: rgba(255, 255, 255, 0.5);
+margin-top:20rem;
+margin-left:15rem;
+margin-right: 15rem;}
+
+.third{grid-area: third;
+    background-color: grey;}
+.main{
+    display: grid;
+    grid-template: 
+    'first second'
+    'third third';
+    height: 1693px;
+    background-image: url("../img/Rectangle1.png")
 }
+
+span{
+    color: white;
 }
-</script>
+
+img{
+    height: 100%;
+}
+
+
+
+</style>

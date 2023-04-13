@@ -42,7 +42,13 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
+@import '../scss/global.scss';
+
+body{
+  background-color: $principalGreen;
+}
+
 .login-form {
   display: flex;
   justify-content: center;
@@ -79,13 +85,13 @@ export default {
     .btn {
       font-size: 1.2rem;
       padding: 0.5rem 1rem;
-      background-color: #b1a829;
+      background-color: $principalGreen;
       color: #fff;
       border: none;
       border-radius: 4px;
       cursor: pointer;
       &:hover {
-        background-color: #3739a3;
+        background-color: #4CA686;
       }
     }
   }
