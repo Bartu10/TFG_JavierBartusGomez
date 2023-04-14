@@ -1,2 +1,16 @@
 $principalGreen: #295948;
 $secondaryGreen: #4CA686;
+
+@font-face {
+    font-family: 'WorkSans';
+    src: url('../fonts/WorkSans-VariableFont_wght.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+  }
+
+  @font-face {
+    font-family: 'WorkSansItalic';
+    src: url('../fonts/WorkSans-Italic-VariableFont_wght.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+  }
