@@ -30,3 +30,4 @@ Ideas:
 Ruleta de Descuentos diario, si te toca que se guarden 5 dias
 Verificacion por SMS/Correo
 Comentarios
+Guardar Club Favorito y que el diseño de la web cambie segun este
