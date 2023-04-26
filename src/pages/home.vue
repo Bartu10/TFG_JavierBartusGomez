@@ -1,5 +1,5 @@
 <template>
-    <div class="main">
+    <div class="home">
         <div class="first">
         <img src="../img/i.jpg" class="worldCup">
         </div>
@@ -25,7 +25,13 @@
     </div>
 </template>
 
+<script>
+export default {
+    
+}
 
+
+</script>
 
 <style lang="scss" scoped>
 @import '../scss/global.scss';
@@ -95,7 +101,7 @@ font-size:4em ;
 
 }
 }
-.main{
+.home{
     display: grid;
     grid-template: 
     'first second'

@@ -4,7 +4,8 @@ import createPersistedState from 'vuex-persistedstate';
 export default createStore({
   state: {
     logged: false, 
-    username: '',
+    user: {},
+    colorPrimary: 'green',
   },
   plugins: [createPersistedState()],
   getters: {
@@ -13,8 +14,14 @@ export default createStore({
     },
 
     getUser(state){
-      return state.username
+      return state.user
+    },
+
+    getColor(state){
+      return state.colorPrimary
     }
+
+
   },
   mutations: {
     setLogged(state, value){
@@ -22,7 +29,15 @@ export default createStore({
     },
 
     setUser(state, value){
-      state.username = value
+      
+      //TODO: GET ALL DATA FROM USER FROM DATABASE
+      
+      state.user = value
+    },
+
+
+    setColorPrimary(state, value){
+      state.colorPrimary = value
     }
 
   
