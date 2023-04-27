@@ -1,38 +1,40 @@
 <template>
   <ul>
     <li>
-      <button v-if="$store.state.logged" class="user-button" @click="toggleMenu">
-        <i class="fas fa-user"></i>
-      </button>
+      <a @click="toggleMenu"><i class="fas fa-user"></i></a>
     </li>
     <li>
-      <a v-if="$store.state.logged" @click="$router.push('/')">Home</a>
+      <a @click="$router.push('/products')"><i class="fa-solid fa-shirt"></i></a>
     </li>
     <li>
-      <a v-if="$store.state.logged" @click="$router.push('/login')">Login</a>
+      <a @click="$router.push('/')"><i class="fa fa-home" aria-hidden="true"></i></a>
     </li>
-    <li>
-      <a v-if="$store.state.logged" href="#contact">Contact</a>
-    </li>
-    <li>
-      <a v-if="$store.state.logged" href="#about">About</a>
+    <li class="icon">
+      <img src="../img/icon.png">
+      <span>Timeless 11</span>
     </li>
   </ul>
 
-  <div>
+  
     <div
       class="menu"
       v-show="isMenuOpen"
       @clickaway="isMenuOpen = false"
-      @click.stop
     >
-      <ul>
-        <li>Opción 1</li>
-        <li>Opción 2</li>
-        <li>Opción 3</li>
-      </ul>
+    <div>
+        <i class="fa fa-times" aria-hidden="true" @click="toggleMenu"></i>
+      <div>
+        <span><i class="fa-solid fa-user-gear"></i>Mis Datos</span>
+        <span><i class="fa-solid fa-box"></i>Pedidos</span>
+        <span><i class="fa-solid fa-star"></i>Favoritos</span>
+        <span><i class="fa-solid fa-circle-question"></i>Contacto</span>
+        <span><i class="fa-solid fa-right-from-bracket"></i> Cerrar Sesión</span>
+      </div>
+      
+      </div>
+      
     </div>
-  </div>
+  
 </template>
 
 <script>
@@ -43,20 +45,69 @@ export default {
     };
   },
   methods: {
+
     toggleMenu() {
+      if(this.$store.state.logged == true){
       this.isMenuOpen = !this.isMenuOpen;
       if (this.isMenuOpen) {
         document.body.classList.add('page--disabled');
       } else {
         document.body.classList.remove('page--disabled');
       }
-    },
+    }
+    else{
+      this.$router.push('/login')
+    }
+    }
   },
 };
 </script>
 
+<style lang="scss">
+.page--disabled {
+  pointer-events: none;
+  user-select: none;
+}
+
+.menu{
+  font-family: 'WorkSans';
+}
+</style>
+
 <style lang="scss" scoped>
+
+
 @import '../scss/global.scss';
+
+
+.icon{
+  display: flex;
+  float: left;
+  height: 40px;
+
+  span{
+    font-size: 140% ;
+    font-family: 'WorkSans' ;
+    color: white;
+    padding-top: 13px;
+    align-self: center;
+    padding-left: 10px;
+    
+  }
+  
+  img{
+    height: 140%;
+    
+  }
+}
+
+
+.fa-times{
+color: red;
+font-size: 150%;
+padding-right: 9px;
+padding-top: 5px;
+}
 
 .user-button {
   z-index: 12;
@@ -66,12 +117,15 @@ export default {
 }
 
 .user-button i {
-  color: #333;
-  font-size: 24px;
+  height: 20px;
+  padding-top:15px;
+  padding-right: 8px;
+  color: white;
+  
 }
 
 .user-button:hover i {
-  color: #555;
+  color: greenyellow;
 }
 
 ul {
@@ -100,29 +154,48 @@ li a:hover {
 
 .menu {
   position: absolute;
-  top: 50px;
-  left: 0;
+  top: 0;
+  right: 16rem;
   width: 200px;
   height: 200px;
   background-color: white;
-  z-index: 1000;
+  z-index: 9999;
   filter: none;
   pointer-events: all;
   user-select: all;
   opacity: 1;
+    transition: all 0.3s ease-in-out;
+  div{
+    
+    text-align: right;
+    display: flex;
+    flex-direction: column;
+    background-color: $principalGreen;
+    width: 28.5rem;
+    height: 60rem;
+    opacity: 1 ;
+    
+  .fa-solid{
+    padding-right: 10px;
+  }
+    div{
+      padding-top: 40px ;
+      text-align: right;
+      span{
+        font-size: 160%;
+        color: white;
+        padding-top:40px;
+        padding-left: 20px;
+        display: flex;
+        img{
+          color: white;
+          height: 30px;
+          padding-right:6px ;
+        }
+      }
+    }
+  }
 }
 
-.page--disabled {
-  filter: blur(2px);
-  pointer-events: none;
-  user-select: none;
-  opacity: 0.5;
-  transition: opacity 0.3s ease-in-out;
-}
 
-.page--disabled .menu {
-  pointer-events: all;
-  user-select: all;
-  opacity: 1;
-}
 </style>

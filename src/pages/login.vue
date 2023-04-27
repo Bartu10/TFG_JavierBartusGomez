@@ -1,18 +1,20 @@
 <template>
+<div class="base">
   <div class="login-form">
     <form @submit.prevent="login">
       <div class="form-group">
-        <label for="username">Nombre de usuario:</label>
+        <label for="username">Username:</label>
         <input id="username" type="text" v-model="username">
       </div>
       <div class="form-group">
-        <label for="password">Contraseña:</label>
+        <label for="password"> Password:</label>
         <input id="password" type="password" v-model="password">
       </div>
       <button class="btn" type="submit">Iniciar sesión</button>
     </form>
 
-    <button class="btn" @click="closeSesion">Cerrar Sesion</button>
+
+  </div>
   </div>
 </template>
 
