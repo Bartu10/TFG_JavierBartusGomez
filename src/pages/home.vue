@@ -1,7 +1,7 @@
 <template>
-    <div class="home">
+    <div class="main">
         <div class="first">
-        <img src="../img/i.jpg" class="worldCup">
+        <img src="../img/RealMadrid.png">
         </div>
         <div class="second">
         <span>
@@ -25,13 +25,7 @@
     </div>
 </template>
 
-<script>
-export default {
-    
-}
 
-
-</script>
 
 <style lang="scss" scoped>
 @import '../scss/global.scss';
@@ -40,31 +34,26 @@ export default {
 
 .first{grid-area: first;
 background-color: rgba(255, 255, 255, 0.9);
-padding-top: 5rem;
 margin-top:5rem;
-margin-left:10rem;
-margin-right: 5rem;
-margin-bottom:10rem;
-padding-bottom: 7%;
+margin-left:5rem;
+margin-right: 1rem;
+margin-bottom:5rem;
 text-align: center;
 overflow: hidden;
 
-.worldCup{
+img{
 text-align: center;
 width: 120%;
-    
 }
 
 }
 .second{
 grid-area: second;
 background-color: rgba(255, 255, 255, 0.9);
-padding-top: 5rem;
 margin-top:5rem;
-margin-left:5rem;
-margin-right: 10rem;
-margin-bottom:10rem;
-padding-bottom: 7%;
+margin-left:1rem;
+margin-right: 5rem;
+margin-bottom: 5rem;
 align-items: center;
 justify-content: center;
 display: flex;
@@ -79,14 +68,13 @@ color: green;
 .third{
 font-family: 'WorkSans';
 grid-area: third;
-
+height: 30rem;
 margin-bottom: 10%;
 background-color: $principalGreen;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-
+display: flex;
+justify-content: center;
+align-items: center;
+flex-direction: column;
     .text{
         padding-left: 10em;
         padding-right: 10em;
@@ -101,22 +89,19 @@ font-size:4em ;
 
 }
 }
-.home{
+.main{
     display: grid;
     grid-template: 
     'first second'
     'third third';
-    height: 1693px;
-    background-image: url("../img/Rectangle1.png")
+    background-color:$grey ;
+   
 }
 
 span{
     color: white;
 }
 
-img{
-    height: 100%;
-}
 
 
 

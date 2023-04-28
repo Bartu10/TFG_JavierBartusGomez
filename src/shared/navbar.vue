@@ -28,7 +28,7 @@
         <span><i class="fa-solid fa-box"></i>Pedidos</span>
         <span><i class="fa-solid fa-star"></i>Favoritos</span>
         <span><i class="fa-solid fa-circle-question"></i>Contacto</span>
-        <span><i class="fa-solid fa-right-from-bracket"></i> Cerrar Sesión</span>
+        <span @click="closeSession"><i class="fa-solid fa-right-from-bracket"></i> Cerrar Sesión</span>
       </div>
       
       </div>
@@ -45,6 +45,15 @@ export default {
     };
   },
   methods: {
+
+    closeSession(){
+        this.toggleMenu()
+        this.$store.commit('setLogged', false)
+        this.$store.commit('setUser', '')
+        this.$router.push('/login')
+        
+
+    },
 
     toggleMenu() {
       if(this.$store.state.logged == true){
