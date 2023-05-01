@@ -1,23 +1,34 @@
 <template>
-  <div class="grid">
-  <div v-for="producto in product" :key="producto.nombre" class="cell" @click="this.$router.push(`/product/${producto.id}`)">
-    <img :src=this.image class="icon">
-    <h3>{{ producto.nombre }}</h3>
-    <p>Precio: {{ producto.precio }}</p>
+    <div class="product-detail">
+  <div class="product-image">
+    <img :src=this.image alt="Product Image">
+  </div>
+  <div class="product-info">
+    <h2>{{ this.productComplete.nombre }}</h2>
+    <h2>{{ this.productComplete.descripcion }}</h2>
+    <h2>{{ this.productComplete.precio }}€ </h2>
+    <div class="product-size">
+      <label for="size-select">Talla:</label>
+      <select name="size" id="size-select">
+        <option value="s">S</option>
+        <option value="m">M</option>
+        <option value="l">L</option>
+        <option value="xl">XL</option>
+      </select>
+    </div>
+    <button class="add-to-cart" @click="addToCart">Añadir al carrito</button>
   </div>
 </div>
-
-
 </template>
-  
-  <script>
-  export default {
+
+<script>
+export default {
     data() {
-      return {
-        value: 100,
-        image:'',
-        description: "Juanjo",
-        product: [{
+        return {
+            image: '',
+            productComplete: '',
+            id: '',
+            product: [{
             "id" : 1,
             "nombre": "Zapatillas Nike Air Max 270",
             "precio": 150,
@@ -74,20 +85,38 @@
             "precio": 75,
             "descripcion": "Esta pulsera de plata es elegante y sofisticada, y es perfecta para cualquier ocasión. Está hecha con plata de ley de alta calidad para una mayor durabilidad."
         }]
-      };
+        }
     },
-  
-   created() {
-      this.callProducts();
-     },
-  
-    methods: {
 
-      
-      async callProducts() {
-        //const token = "eyJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJzZWxmIiwic3ViIjoiYmFydHUiLCJleHAiOjE2ODI3NzM1MTMsImlhdCI6MTY4Mjc2OTkxMywic2NvcGUiOiIifQ.ZV6pCnljBOzcs26P6ELMpWbCOYzACFbdxA8XBvmyWDiCFblEq_oW26RZwk8Pob94a5f_sr_YcOh6o_UJmZYz-XL5nyvhFTrG49KrYgVnbu4pdny-Acrx7f9xuTungnAhLDi76v43MVUJcgru9KQOCXiBJJJUY68VtigvjhJSNZCiP_Iv_g1HhGxiw1wm34Lu3HiQ7kzIou7-EjTCfPtksII7ZWatnybB4ePNAI0YhhdmvgG8RgaLkv04ITM1ij0uX8pS0gdi3j-uE1qgKiLyLreXVjGyEs93oLBteeUFSlbG0AkHfaG42NGJfpL-MmxjKp5TRuHymioZH8X4h3mKzA";
-  
-        const response = await fetch("https://jsonplaceholder.typicode.com/photos/1", {
+    methods:{
+        addToCart(){
+            let cart = JSON.parse(localStorage.getItem('cart')) || []
+            this.productComplete.quantity = 1
+            console.log(this.productComplete)
+            for (let x in cart){
+                if (cart[x].id == this.productComplete.id){
+                    console.log("cart[x].id", cart[x].id)
+                    console.log("this.productComplete.id",this.productComplete.id)
+                    cart[x].quantity++
+                }
+                else{
+                    cart.push(this.productComplete)
+                }
+            }
+            localStorage.setItem('cart', JSON.stringify(cart))
+            console.log(cart)
+        }
+    },
+    created() {
+        
+        this.id = this.$route.params.id;
+        for (let x in this.product){
+            if(this.product[x]["id"] == this.id){
+                this.productComplete = this.product[x]        
+                console.log(this.productComplete) 
+            }
+        }
+        const response = fetch("https://jsonplaceholder.typicode.com/photos/1", {
           method: "GET",
           //headers: {
             //Authorization: `Bearer ${token}`,
@@ -102,51 +131,68 @@
       // Display the response data in the console
       // Do other things with the data as needed
     })
-    .catch(error => {
-      console.error(error); // Log any errors to the console
-      // Handle any errors that may have occurred
-    });
-    
-      },
 
-      async callOrder() {
-        try {
-          let dato = {
-            value: this.value,
-            description: this.description,
-          };
-          const response = await fetch("http://localhost:3000/create", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(dato),
-          });
-  
-          const data = await response.json();
-          window.location.href = data.links[1].href;
-        } catch (error) {
-          console.error(error);
-        }
-      },
-    },
-  };
-  </script>
-  
-  <style lang="scss" scoped>
+        
+    }
+}
 
-.grid {
-        font-family: 'WorkSans';
-        margin-top:2% ;
-        display: grid;
-        grid-template-columns: auto auto auto auto;
 
-        width: 100%;
-        .icon{
-          width: 20%;
-        }
+</script>
+
+<style lang="scss" scoped>
+@import '../scss/global.scss';
+*{
+    font-family: 'WorkSans';
+}
+.product-detail {
+  display: flex;
+  justify-content: space-between;
+  margin: 20px;
+  .product-image {
+    width: 40%;
+    img {
+      max-width: 100%;
+    }
+  }
+  .product-info {
+    width: 60%;
+    padding: 10px;
+    .product-name {
+      font-size: 24px;
+      margin-top: 0;
+      margin-bottom: 10px;
+    }
+    .product-description {
+      margin-bottom: 10px;
+    }
+    .product-price {
+      font-size: 18px;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+    .product-size {
+      margin-bottom: 10px;
+      label {
+        margin-right: 10px;
       }
-      .cell {
-        text-align: center;
+      select {
+        padding: 5px;
+        font-size: 16px;
       }
-  </style>
+    }
+    .add-to-cart {
+      padding: 10px;
+      font-size: 16px;
+      font-weight: bold;
+      background-color: $principalGreen;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      &:hover {
+        background-color: #4CA686;
+      }
+    }
+  }
+}
+</style>

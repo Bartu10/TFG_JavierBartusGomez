@@ -14,7 +14,7 @@
       <div class="form-group">
         
       </div>
-      <button class="btn" type="submit" @click="enviarCorreo">Iniciar sesión</button>
+      <button class="btn" type="submit" @click="enviarCorreo">Enviar</button>
     </form>
 
 				
@@ -31,35 +31,6 @@ export default {
         email: '',
         mensaje: ''
     };
-  },
-  methods: {
-enviarCorreo() {
-      // Configurar el objeto de transporte de Nodemailer
-      const transporter = nodemailer.createTransport({
-        service: 'gmail',
-        auth: {
-          user: 'timeless11tic@gmail.com',
-          pass: '29042904Jbg',
-        },
-      });
-
-      // Configurar el correo electrónico a enviar
-      const mailOptions = {
-        from: 'timeless11tic@gmail.com',
-        to: this.email,
-        subject: `Buenas ${this.name}`,
-        text: `Hemos recibido su mensaje ${this.mensaje}, llame al 601280212 para el servicio tecnico`,
-      };
-
-      // Enviar el correo electrónico
-      transporter.sendMail(mailOptions, (error, info) => {
-        if (error) {
-          console.error(error);
-        } else {
-          console.log('Correo electrónico enviado:', info.response);
-        }
-      });
-    },
   },
 };
 </script>

@@ -1,11 +1,11 @@
 <template>
     <div class="main">
         <div class="first">
-        <img src="../img/RealMadrid.png">
+        <img src="../img/young.jpg">
         </div>
         <div class="second">
         <span>
-            second
+            <img src="../img/Liverpool.png">
         </span>
     </div>
         <div class="third">
@@ -43,7 +43,7 @@ overflow: hidden;
 
 img{
 text-align: center;
-width: 120%;
+width: 90%;
 }
 
 }
@@ -58,7 +58,10 @@ align-items: center;
 justify-content: center;
 display: flex;
 
-
+img{
+text-align: center;
+width: 90%;
+}
 span{
 color: green;
 }
