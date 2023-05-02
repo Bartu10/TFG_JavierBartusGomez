@@ -24,9 +24,7 @@
     },
     methods:{
         saveColor(){
-            console.log(this.color)
             this.$store.commit('setColorPrimary', this.color);
-            console.log(this.$store.state)
         }
 
 

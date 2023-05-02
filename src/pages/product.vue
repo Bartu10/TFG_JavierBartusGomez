@@ -89,23 +89,28 @@ export default {
     },
 
     methods:{
-        addToCart(){
-            let cart = JSON.parse(localStorage.getItem('cart')) || []
-            this.productComplete.quantity = 1
-            console.log(this.productComplete)
-            for (let x in cart){
-                if (cart[x].id == this.productComplete.id){
-                    console.log("cart[x].id", cart[x].id)
-                    console.log("this.productComplete.id",this.productComplete.id)
-                    cart[x].quantity++
-                }
-                else{
-                    cart.push(this.productComplete)
-                }
-            }
-            localStorage.setItem('cart', JSON.stringify(cart))
-            console.log(cart)
+addToCart() {
+  
+    let cart = JSON.parse(localStorage.getItem('cart')) || []
+    let isProductAlreadyInCart = false
+
+    for (let x in cart) {
+        if (cart[x].id === this.productComplete.id) {
+            cart[x].quantity++
+            isProductAlreadyInCart = true
+            break
         }
+    }
+
+    if (!isProductAlreadyInCart) {
+        let product = this.productComplete
+        product.quantity = 1
+        cart.push(product)
+    }
+
+    localStorage.setItem('cart', JSON.stringify(cart))
+    location.reload()
+}
     },
     created() {
         
@@ -113,7 +118,7 @@ export default {
         for (let x in this.product){
             if(this.product[x]["id"] == this.id){
                 this.productComplete = this.product[x]        
-                console.log(this.productComplete) 
+
             }
         }
         const response = fetch("https://jsonplaceholder.typicode.com/photos/1", {
@@ -125,7 +130,6 @@ export default {
         .then(response => response.json())
     .then(data => {
       // Handle the response data here
-      console.log(data);
       this.image = data.url
       
       // Display the response data in the console

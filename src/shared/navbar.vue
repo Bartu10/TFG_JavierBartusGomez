@@ -7,7 +7,7 @@
       <a @click="$router.push('/products')"><i class="fa-solid fa-shirt"></i></a>
     </li>
     <li>
-      <a @click="toggleCart"><i class="fa-solid fa-cart-shopping"></i></a>
+      <a @click="$router.push('/cart')"><i class="fa-solid fa-cart-shopping">{{ this.cartLength }}</i></a>
     </li>
     <li>
       <a @click="$router.push('/')"><i class="fa fa-home" aria-hidden="true"></i></a>
@@ -35,24 +35,7 @@
       </div>
       </div>
     </div>
-    
-
-    <div
-      class="cart"
-      v-show="isCartOpen">
-    <div>
-        <i class="fa fa-times" aria-hidden="true" @click="toggleCart"></i>
-      <div>
-        <span><i class="fa-solid fa-user-gear"></i>Mis Datos</span>
-        <span><i class="fa-solid fa-box"></i>Pedidos</span>
-        <span><i class="fa-solid fa-star"></i>Favoritos</span>
-        <span @click="this.$router.push('/contact')"><i class="fa-solid fa-circle-question"></i>Contacto</span>
-        <span @click="closeSession"><i class="fa-solid fa-right-from-bracket"></i> Cerrar Sesión</span>
-      </div>
-      
-      </div>
-      
-    </div>
+  
   
 </template>
 
@@ -60,7 +43,7 @@
 export default {
   data() {
     return {
-      isCartOpen: true,
+      cartLength : 0,
       isMenuOpen: false,
     };
   },
@@ -71,21 +54,17 @@ export default {
         this.$store.commit('setLogged', false)
         this.$store.commit('setUser', '')
         this.$router.push('/login')
-        
-
     },
 
-    toggleCart() {
-      if(this.isCartOpen){      
-      this.isCartOpen = false;
-      }
-      else{
-      this.isCartOpen = true
 
+    calLength(){
+      let total = 0
+      let calLength = JSON.parse(localStorage.getItem('cart'))
+      for(let y in calLength){
+        total = total + calLength[y].quantity
+        calLength
       }
-      
-      
-
+      this.cartLength = total
     },
 
     toggleMenu() {
@@ -102,6 +81,11 @@ export default {
     }
     }
   },
+
+  mounted(){
+    this.calLength()
+    console.log(this.cartLength)
+  }
 };
 </script>
 
@@ -239,50 +223,4 @@ li a:hover {
   }
 }
 
-
-.cart {
-  position: absolute;
-  top: 0;
-  right: 16rem;
-  width: 20px;
-  height: 200px;
-  background-color: white;
-  z-index: 9999;
-  filter: none;
-  pointer-events: all;
-  user-select: all;
-  opacity: 1;
-  transition: all 0.3s ease-in-out;
-  margin-right: 10rem;
-  margin-top: 4rem;
-  div{
-    
-    text-align: right;
-    display: flex;
-    flex-direction: column;
-    background-color: $principalGreen;
-    width: 20rem;
-    opacity: 1 ;
-    
-  .fa-solid{
-    padding-right: 10px;
-  }
-    div{
-      padding-top: 40px ;
-      text-align: right;
-      span{
-        font-size: 160%;
-        color: white;
-        padding-top:40px;
-        padding-left: 20px;
-        display: flex;
-        img{
-          color: white;
-          height: 30px;
-          padding-right:6px ;
-        }
-      }
-    }
-  }
-}
 </style>

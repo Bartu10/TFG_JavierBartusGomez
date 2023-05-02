@@ -4,7 +4,7 @@ import createPersistedState from 'vuex-persistedstate';
 export default createStore({
   state: {
     logged: false, 
-    user: {},
+    user: '',
     colorPrimary: 'green',
   },
   plugins: [createPersistedState()],

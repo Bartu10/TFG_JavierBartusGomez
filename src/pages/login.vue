@@ -31,14 +31,12 @@ export default {
        //TODO Comprobar en la BD
         this.$store.commit('setLogged', true)
         this.$store.commit('setUser', this.username)
-        console.log(this.$store.state);
     },
 
 
     async closeSesion(){
         this.$store.commit('setLogged', false)
         this.$store.commit('setUser', '')
-        console.log(this.$store.state);
     }
   },
 };

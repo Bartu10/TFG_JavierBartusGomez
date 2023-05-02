@@ -96,7 +96,7 @@
         .then(response => response.json())
     .then(data => {
       // Handle the response data here
-      console.log(data);
+
       this.image = data.url
       
       // Display the response data in the console
@@ -107,27 +107,6 @@
       // Handle any errors that may have occurred
     });
     
-      },
-
-      async callOrder() {
-        try {
-          let dato = {
-            value: this.value,
-            description: this.description,
-          };
-          const response = await fetch("http://localhost:3000/create", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(dato),
-          });
-  
-          const data = await response.json();
-          window.location.href = data.links[1].href;
-        } catch (error) {
-          console.error(error);
-        }
       },
     },
   };
