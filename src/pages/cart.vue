@@ -10,9 +10,10 @@
     <a @click="deleteProductCart(index)"><i class="fa-solid fa-xmark"></i></a>
     </div>
   </div>
-  <h2>Precio Total: {{' ' + this.total}}€</h2>
-  <button @click="callOrder">Comprar</button>
-  <button @click="clearCart">Limpiar Carrito</button>
+  <h2 v-if="!this.total == 0">Precio Total: {{' ' + this.total}}€</h2>
+  <button v-if="!this.total == 0" @click="callOrder">Comprar</button>
+  <button v-if="!this.total == 0" @click="clearCart">Limpiar Carrito</button>
+  <span v-if="this.total == 0">No hay productos en el carrito.</span>
 </div>
 
 
@@ -128,6 +129,7 @@ img{
     padding-left: 5%;
     .cell{
         display: flex;
+        margin-top: 1%;
         div{
             margin-left: 2%;
         }
