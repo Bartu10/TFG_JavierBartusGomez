@@ -105,7 +105,6 @@ export default {
     let listaNombres = this.favs.map(p => p.nombre);
     let names = listaNombres.join(', ');
         this.description = `La compra es de ${names}`
-        this.value = 
     }
 
 }
