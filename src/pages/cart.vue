@@ -7,6 +7,7 @@
     <h3>{{ fav.nombre }}</h3>
     <p>Precio: {{ fav.precio }}</p>
     <p>Cantidad : {{fav.quantity}}</p>
+    <p>Talla : {{fav.talla}}</p>
     <a @click="deleteProductCart(index)"><i class="fa-solid fa-xmark"></i></a>
     </div>
   </div>
@@ -14,6 +15,7 @@
   <button v-if="!this.total == 0" @click="callOrder">Comprar</button>
   <button v-if="!this.total == 0" @click="clearCart">Limpiar Carrito</button>
   <span v-if="this.total == 0">No hay productos en el carrito.</span>
+  
 </div>
 
 

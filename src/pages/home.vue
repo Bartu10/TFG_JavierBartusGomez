@@ -1,13 +1,11 @@
 <template>
     <div class="main">
         <div class="first">
-        <img src="../img/young.jpg">
+        <img src="../img/young.png">
         </div>
         <div class="second">
-        <span>
             <img src="../img/Liverpool.png">
-        </span>
-    </div>
+        </div>
         <div class="third">
             <div class="Question">
         <span>
@@ -30,10 +28,17 @@
 <style lang="scss" scoped>
 @import '../scss/global.scss';
 
-
+@media(max-width: 1000px){
+    .main{
+display: grid; 
+grid-template: 'first first'
+                'second second'
+                'third third' ;}
+}
 
 .first{grid-area: first;
 background-color: rgba(255, 255, 255, 0.9);
+   background-color:$grey ;
 margin-top:5rem;
 margin-left:5rem;
 margin-right: 1rem;
@@ -43,13 +48,13 @@ overflow: hidden;
 
 img{
 text-align: center;
-width: 90%;
+width: 100%;
 }
 
 }
 .second{
+background-color:$grey ;
 grid-area: second;
-background-color: rgba(255, 255, 255, 0.9);
 margin-top:5rem;
 margin-left:1rem;
 margin-right: 5rem;
@@ -60,7 +65,7 @@ display: flex;
 
 img{
 text-align: center;
-width: 90%;
+width: 100%;
 }
 span{
 color: green;
@@ -109,3 +114,5 @@ span{
 
 
 </style>
+
+
