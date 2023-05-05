@@ -16,6 +16,8 @@
   <button v-if="!this.total == 0" @click="clearCart">Limpiar Carrito</button>
   <span v-if="this.total == 0">No hay productos en el carrito.</span>
   
+
+
 </div>
 
 
@@ -64,15 +66,10 @@ export default {
         })
         .then(response => response.json())
     .then(data => {
-      // Handle the response data here  
       this.image = data.url
-      
-      // Display the response data in the console
-      // Do other things with the data as needed
     })
     .catch(error => {
-      console.error(error); // Log any errors to the console
-      // Handle any errors that may have occurred
+      console.error(error);
     });
     
       },
@@ -100,8 +97,9 @@ export default {
     },
     created() {
         this.favs = JSON.parse(localStorage.getItem('cart'))
-        this.calcTotal() // Invocamos la función calcTotal()
+        this.calcTotal()
         this.callProducts()
+        console.log(this.$router)
     },
 
     updated() {

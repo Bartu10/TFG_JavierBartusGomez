@@ -26,7 +26,7 @@
     >
     <div>
         <i class="fa fa-times" aria-hidden="true" @click="toggleMenu"></i>
-      <div>
+      <div class="latbar">
         <span><i class="fa-solid fa-user-gear"></i>Mis Datos</span>
         <span><i class="fa-solid fa-box"></i>Pedidos</span>
         <span><i class="fa-solid fa-star"></i>Favoritos</span>
@@ -94,7 +94,11 @@ export default {
   pointer-events: none;
   user-select: none;
 }
-
+@keyframes cambio-color {
+  0% { color: white; }
+  50% { color: #111 }
+  100% { color: black; }
+}
 .menu{
   font-family: 'WorkSans';
 }
@@ -102,6 +106,11 @@ export default {
 
 <style lang="scss" scoped>
 
+.latbar{
+  span:hover{
+    animation: cambio-color 2s infinite;
+  }
+}
 
 @import '../scss/global.scss';
 
