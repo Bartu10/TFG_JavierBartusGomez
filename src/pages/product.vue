@@ -1,12 +1,15 @@
 <template>
     <div class="product-detail">
   <div class="product-image">
-    <img :src=this.image alt="Product Image">
+    <img :src=this.productComplete.img alt="Product Image">
   </div>
   <div class="product-info">
-    <h2>{{ this.productComplete.nombre }}</h2>
-    <h2>{{ this.productComplete.descripcion }}</h2>
-    <h2>{{ this.productComplete.precio }}€ </h2>
+    <h2>{{ this.productComplete.name }}</h2>
+    <h2>{{ this.productComplete.description }}</h2>
+    <h2>{{ this.productComplete.team }}</h2>
+    <h2>{{ this.productComplete.state }}</h2>
+    <h2>{{ this.productComplete.year }}</h2>
+    <h2>{{ this.productComplete.price }}€ </h2>
     <div class="product-size">
       <label for="size-select">Talla:</label>
       <select name="size" id="size-select" v-model="this.talla">
@@ -29,108 +32,28 @@ export default {
             image: '',
             productComplete: '',
             id: '',
-            product: [{
-            "id" : 1,
-            "nombre": "Zapatillas Nike Air Max 270",
-            "precio": 150,
-            "descripcion": "Las zapatillas Nike Air Max 270 cuentan con una unidad Max Air en el talón y una parte superior de malla transpirable para ofrecer una comodidad excelente durante todo el día.",
-            "XL": 0,
-            "L": 0,
-            "M": 0,
-            "S": 0,
-          },
-        {
-            "id" : 2,
-            "nombre": "Camiseta Adidas Originals",
-            "precio": 35,
-            "descripcion": "La camiseta Adidas Originals cuenta con el icónico logotipo de Adidas en el pecho y está confeccionada con algodón suave y cómodo para una mayor comodidad.",
-            "XL": 0,
-            "L": 0,
-            "M": 0,
-            "S": 0,
-        
-        },
-        {
-            "id" : 3,
-            "nombre": "Pantalones Levi's 501",
-            "precio": 80,
-            "descripcion": "Los pantalones Levi's 501 son unos pantalones vaqueros clásicos de corte recto que se ajustan perfectamente a la cintura y las caderas. Están confeccionados con algodón resistente para una mayor durabilidad.",
-            "XL": 0,
-            "L": 0,
-            "M": 0,
-            "S": 0,
-        },
-        {
-            "id" : 4,
-            "nombre": "Jersey de lana merina",
-            "precio": 120,
-            "descripcion": "Este jersey de lana merina es suave al tacto y cuenta con una excelente capacidad térmica, lo que lo hace ideal para los días más fríos del año.",
-            "XL": 0,
-            "L": 0,
-            "M": 0,
-            "S": 0,
-        },
-        {
-            "id" : 5,
-            "nombre": "Bolso de cuero",
-            "precio": 200,
-            "descripcion": "Este elegante bolso de cuero cuenta con múltiples compartimentos y está hecho con cuero de alta calidad para una mayor durabilidad y resistencia.",
-            "XL": 0,
-            "L": 0,
-            "M": 0,
-            "S": 0,
-        },
-        {   "id" : 6,
-            "nombre": "Chaqueta de cuero",
-            "precio": 250,
-            "descripcion": "La chaqueta de cuero es una prenda de vestir atemporal que nunca pasa de moda. Esta chaqueta en particular está confeccionada con cuero de alta calidad y cuenta con un forro suave para una mayor comodidad.",
-            "XL": 0,
-            "L": 0,
-            "M": 0,
-            "S": 0,
-        },
-        {
-            "id" : 6,
-            "nombre": "Gorra New Era",
-            "precio": 30,
-            "descripcion": "La gorra New Era es un accesorio imprescindible para cualquier amante de los deportes. Está confeccionada con materiales de alta calidad y cuenta con el logotipo de tu equipo favorito en el frente.",
-            "XL": 0,
-            "L": 0,
-            "M": 0,
-            "S": 0,
-        },
-        {
-            "id" : 7,
-            "nombre": "Reloj de pulsera Casio",
-            "precio": 50,
-            "descripcion": "Este reloj de pulsera Casio es resistente al agua y cuenta con una pantalla digital fácil de leer. Es ideal para aquellos que buscan un reloj duradero y funcional.",
-            "XL": 0,
-            "L": 0,
-            "M": 0,
-            "S": 0,
-        },
-        {  "id" : 8,
-            "nombre": "Pulsera de plata",
-            "precio": 75,
-            "descripcion": "Esta pulsera de plata es elegante y sofisticada, y es perfecta para cualquier ocasión. Está hecha con plata de ley de alta calidad para una mayor durabilidad.",
-            "XL": 0,
-            "L": 0,
-            "M": 0,
-            "S": 0,
-        },
-        {  "id" : 9,
-            "nombre": "Pulsera de plata",
-            "precio": 75,
-            "descripcion": "Esta pulsera de plata es elegante y sofisticada, y es perfecta para cualquier ocasión. Está hecha con plata de ley de alta calidad para una mayor durabilidad.",
-            "XL": 0,
-            "L": 0,
-            "M": 0,
-            "S": 0,
-        }]
+            product: ''
         }
     },
 
     methods:{
+
+async callProduct(){
+  const token = 'eyJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJzZWxmIiwic3ViIjoiYmFydHUiLCJleHAiOjE2ODM3OTYyNjEsImlhdCI6MTY4Mzc5MjY2MSwic2NvcGUiOiIifQ.kalGbsz1c3TdPZnKa1s-xO11Ty6eAIzg-gUqYY38Zj-8FYwvRIOySzMI97RdJfIaeQNPkt2inigVTko-TV1xwEsm4sFC9gdf8UOOWOLw6t_QQ-CZRMjJVVwlJ4s-CwFs2IaHN7eJoRUgccQw5zU-9EqjONLAQp3N57POdAi9O7FZOqu5-nsBH6bB5ZKJIrFgo-7vofhaSqxPhkAiS9FUdxhcOO7RByjZwRbMu-esqZWJJX_BwDQ5UZMaDdDabFH68JXTecICdiXbH-O-OZnhdZ70o6dlQ4r2ifgQEINtacA78_WAHN0VPEFgiQQ7fYws7s7ny_dVCr1gjgrTOqPwPg'
+  console.log("dw",this.$route.params.id)
+  const url = `http://localhost:8080/products/${this.$route.params.id}/`
+  console.log("url",url)       
+  const response = await fetch(url, {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        .then(response => response.json())
+        console.log("response",response)
+        this.productComplete = response 
+},
+
 addToCart() {
   
     let cart = JSON.parse(localStorage.getItem('cart')) || []
@@ -156,30 +79,7 @@ addToCart() {
 }
     },
     created() {
-        
-        this.id = this.$route.params.id;
-        for (let x in this.product){
-            if(this.product[x]["id"] == this.id){
-                this.productComplete = this.product[x]        
-
-            }
-        }
-        const response = fetch("https://jsonplaceholder.typicode.com/photos/1", {
-          method: "GET",
-          //headers: {
-            //Authorization: `Bearer ${token}`,
-          //},
-        })
-        .then(response => response.json())
-    .then(data => {
-      // Handle the response data here
-      this.image = data.url
-      
-      // Display the response data in the console
-      // Do other things with the data as needed
-    })
-
-        
+        this.callProduct()
     }
 }
 

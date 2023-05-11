@@ -1,11 +1,10 @@
 <template>
-  <span>Cart</span>
     <div class="grid">
     <div v-for="(fav,index) in favs" :key="fav.nombre" class="cell">
-      <img :src=this.image class="icon">
+      <img :src=fav.img class="icon">
       <div>
-      <h3>{{ fav.nombre }}</h3>
-      <p>Precio: {{ fav.precio }}</p>
+      <h3>{{ fav.name }}</h3>
+      <p>Precio: {{ fav.price }}</p>
       <p>Cantidad : <button @click="this.Decrease(index,1)">-</button>{{fav.quantity}}<button @click="this.Increase(index, 1)">+</button></p>
       <p>Talla : {{fav.talla}}</p>
       <a @click="deleteProductCart(index)"><i class="fa-solid fa-xmark"></i></a>
@@ -14,10 +13,10 @@
     <h2 v-if="!this.total == 0">Precio Total: {{' ' + this.total}}€</h2>
     <button v-if="!this.total == 0" @click="callOrder">Comprar</button>
     <button v-if="!this.total == 0" @click="clearCart">Limpiar Carrito</button>
-    <span v-if="this.total == 0">No hay productos en el carrito.</span>
-    
-  
-  
+  </div>
+  <div class="emptyCart" v-if="this.total == 0">
+  <img class="imgCart" src="../img/carro-vacio.png">
+  <span>No hay productos en el carrito.</span>
   </div>
   
   
@@ -76,8 +75,8 @@
       
         },
           clearCart() {
-              localStorage.removeItem("cart");
-              location.reload()
+            localStorage.removeItem("cart");
+            location.reload()
           },
   
           deleteProductCart(index){
@@ -106,7 +105,7 @@
           calcTotal() {
               let tota = 0;
               for (let x in this.favs) {
-                  tota = tota + this.favs[x].precio * this.favs[x].quantity
+                  tota = tota + this.favs[x].price * this.favs[x].quantity
               }
               console.log("tota",tota)
               this.total = tota
@@ -121,7 +120,7 @@
   
       updated() {
           
-      let listaNombres = this.favs.map(p => p.nombre);
+      let listaNombres = this.favs.map(p => p.name);
       let names = listaNombres.join(', ');
           this.description = `La compra es de ${names}`
       }
@@ -131,6 +130,23 @@
   
   <style lang="scss" scoped>
   
+  .emptyCart{
+    display: flex;
+    flex-direction:column ;
+    span{
+      text-align: center;
+      margin-left: 47px;
+    }
+  }
+
+  .imgCart{
+    padding-bottom: 20px;
+    width: 200px;
+    align-self: center;
+    padding-top: 20px;
+  }
+
+
   *:not(.fa-solid){
       font-family: 'WorkSans'
   }
