@@ -1,6 +1,6 @@
 <template>
   <div class="profile-menu">
-    <img :src="this.user.s" alt="Profile Picture" class="profile-picture" @click=securityPhoto()>
+    <img :src="this.user.s" alt="Profile Picture" class="profile-picture" @click="securityPhoto()">
     <div class="infoUser">
     <div class="titlePen">
     <span class="title">Tarjeta de Usuario</span>
@@ -47,18 +47,7 @@
     </div>
 
   </div>
-
-
-
-  <div class="popup-container" v-if="editPhoto && Security">
-    <div class="popup">
-      <p>Editar Foto de Perfil</p>
-      <p>Ingresa una URL</p>
-      <input type="file" class="styled-input" placeholder="Ingresa tu texto">
-      <button @click="editPhoto = false">Cerrar</button>
-    </div>
-  </div>
-
+    <input v-if="editPhoto && Security" ref="fileInput" id="addImage" type="file" class="styled-input" placeholder="Ingresa tu texto">
   <div class="popup-container" v-if="this.editSecurity">
     <div class="popup">
       <div class="closeSecurity">
@@ -115,6 +104,9 @@ export default {
     securityPhoto(){
       if(this.Security == true){
         this.editPhoto = true
+        this.$nextTick(() => {
+          this.$refs.fileInput.click(); // Activar clic en el input de archivo
+        });
               
       }
       if(this.Security == false){
@@ -161,7 +153,9 @@ export default {
 @import '../scss/global.scss';
 
 
-
+#addImage{
+display: none;
+}
 .btn {
       font-size: 1.2rem;
       padding: 0.5rem 1rem;
