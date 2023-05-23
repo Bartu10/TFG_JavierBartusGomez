@@ -5,7 +5,7 @@ export default createStore({
   state: {
     logged: false, 
     user: '',
-    colorPrimary: 'green',
+    token:''
   },
   plugins: [createPersistedState()],
   getters: {
@@ -17,8 +17,8 @@ export default createStore({
       return state.user
     },
 
-    getColor(state){
-      return state.colorPrimary
+    getToken(state){
+      return state.token
     }
 
 
@@ -29,15 +29,11 @@ export default createStore({
     },
 
     setUser(state, value){
-      
-      //TODO: GET ALL DATA FROM USER FROM DATABASE
-      
       state.user = value
     },
 
-
-    setColorPrimary(state, value){
-      state.colorPrimary = value
+    setToken(state, value){
+      state.token = value
     }
 
   

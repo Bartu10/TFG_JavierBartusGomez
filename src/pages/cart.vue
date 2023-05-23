@@ -38,6 +38,7 @@
             let dato = {
               value: this.total,
               description: this.description,
+              objects: this.favs,
             };
             const response = await fetch("http://localhost:3000/create", {
               method: "POST",
@@ -55,25 +56,6 @@
           }
         },
   
-  
-        async callProducts() {
-          //const token = "eyJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJzZWxmIiwic3ViIjoiYmFydHUiLCJleHAiOjE2ODI3NzM1MTMsImlhdCI6MTY4Mjc2OTkxMywic2NvcGUiOiIifQ.ZV6pCnljBOzcs26P6ELMpWbCOYzACFbdxA8XBvmyWDiCFblEq_oW26RZwk8Pob94a5f_sr_YcOh6o_UJmZYz-XL5nyvhFTrG49KrYgVnbu4pdny-Acrx7f9xuTungnAhLDi76v43MVUJcgru9KQOCXiBJJJUY68VtigvjhJSNZCiP_Iv_g1HhGxiw1wm34Lu3HiQ7kzIou7-EjTCfPtksII7ZWatnybB4ePNAI0YhhdmvgG8RgaLkv04ITM1ij0uX8pS0gdi3j-uE1qgKiLyLreXVjGyEs93oLBteeUFSlbG0AkHfaG42NGJfpL-MmxjKp5TRuHymioZH8X4h3mKzA";
-    
-          const response = await fetch("https://jsonplaceholder.typicode.com/photos/1", {
-            method: "GET",
-            //headers: {
-              //Authorization: `Bearer ${token}`,
-            //},
-          })
-          .then(response => response.json())
-      .then(data => {
-        this.image = data.url
-      })
-      .catch(error => {
-        console.error(error);
-      });
-      
-        },
           clearCart() {
             localStorage.removeItem("cart");
             location.reload()
@@ -114,8 +96,6 @@
       created() {
           this.favs = JSON.parse(localStorage.getItem('cart'))
           this.calcTotal()
-          this.callProducts()
-          console.log(this.$router)
       },
   
       updated() {
@@ -131,6 +111,7 @@
   <style lang="scss" scoped>
   
   .emptyCart{
+    margin-top: 15%;
     display: flex;
     flex-direction:column ;
     span{
@@ -151,10 +132,7 @@
       font-family: 'WorkSans'
   }
   
-  </style>
   
-  
-  <style lang="scss" scoped>
   img{
       height: 200px;
   }

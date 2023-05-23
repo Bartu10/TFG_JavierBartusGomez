@@ -7,7 +7,10 @@ const routes = [
     { path: '/products', component: () => import('../pages/products.vue')},
     { path: '/product/:id', component: () => import('../pages/product.vue')},
     { path: '/contact', component: () => import('../pages/contact.vue')},
-    { path: '/cart', component: () => import('../pages/cart.vue')}
+    { path: '/cart', component: () => import('../pages/cart.vue')},
+    { path: '/register', component: () => import('../pages/register.vue')},
+    { path: '/adder', component: () => import('../pages/adder.vue')},
+    { path: '/orderCompleted', component: () => import('../pages/OrderBuyed.vue')}
 
   ]
 

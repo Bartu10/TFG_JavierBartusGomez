@@ -39,7 +39,7 @@ export default {
     methods:{
 
 async callProduct(){
-  const token = 'eyJhbGciOiJSUzI1NiJ9.eyJpc3MiOiJzZWxmIiwic3ViIjoiYmFydHUiLCJleHAiOjE2ODM3OTYyNjEsImlhdCI6MTY4Mzc5MjY2MSwic2NvcGUiOiIifQ.kalGbsz1c3TdPZnKa1s-xO11Ty6eAIzg-gUqYY38Zj-8FYwvRIOySzMI97RdJfIaeQNPkt2inigVTko-TV1xwEsm4sFC9gdf8UOOWOLw6t_QQ-CZRMjJVVwlJ4s-CwFs2IaHN7eJoRUgccQw5zU-9EqjONLAQp3N57POdAi9O7FZOqu5-nsBH6bB5ZKJIrFgo-7vofhaSqxPhkAiS9FUdxhcOO7RByjZwRbMu-esqZWJJX_BwDQ5UZMaDdDabFH68JXTecICdiXbH-O-OZnhdZ70o6dlQ4r2ifgQEINtacA78_WAHN0VPEFgiQQ7fYws7s7ny_dVCr1gjgrTOqPwPg'
+  const token = this.$store.state.token
   console.log("dw",this.$route.params.id)
   const url = `http://localhost:8080/products/${this.$route.params.id}/`
   console.log("url",url)       

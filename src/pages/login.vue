@@ -3,17 +3,16 @@
   <div class="login-form">
     <form @submit.prevent="login">
       <div class="form-group">
-        <label for="username">Username:</label>
-        <input id="username" type="text" v-model="username">
+        <label for="email">Email:</label>
+        <input id="email" type="text" v-model="email">
       </div>
       <div class="form-group">
         <label for="password"> Password:</label>
         <input id="password" type="password" v-model="password">
       </div>
       <button class="btn" type="submit">Iniciar sesión</button>
+      <a @click="this.$router.push('/register')">Registrate aquí</a>
     </form>
-
-
   </div>
   </div>
 </template>
@@ -22,17 +21,62 @@
 export default {
   data() {
     return {
-      username: '',
+      email: '',
       password: '',
     };
   },
   methods: {
     async login() {
-       //TODO Comprobar en la BD
-        this.$store.commit('setLogged', true)
-        this.$store.commit('setUser', this.username)
+
+      const user = {
+        email: this.email,
+        password: this.password,
+      };
+
+      await fetch("http://localhost:8080/token", {
+        method: "POST",
+        headers: {
+          "Authorization": 'Basic ' + window.btoa("javi@gmail.com" + ':' + "123"),
+          "Content-Type": "application/json",
+        },
+        
+      })
+      .then(response => response.text())
+      .then(token => {
+        console.log(token)
+        fetch("http://localhost:8080/users/login", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify(user),
+        })
+        .then(response => response.json())
+          this.$store.commit('setLogged', true)
+          this.$store.commit('setUser', user.email)
+          this.$store.commit('setToken', token)
+          this.$router.push('/')
+      })
+      
     },
 
+
+    /*async getUser(){
+      const response = await fetch(`http://localhost:8080/users/${this.email}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      const data = await response.json();
+      this.$store.commit('setUser', data)
+    }
+
+
+    Made it in Springboot
+    */
 
     async closeSesion(){
         this.$store.commit('setLogged', false)

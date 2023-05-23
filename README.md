@@ -35,3 +35,9 @@ Personalizacion y ofertas segun tu club favorito
 =======
 Guardar Club Favorito y que el diseño de la web cambie segun este
 >>>>>>> f7586919127883bbc3a34893b3e5c516c416d525
+
+
+
+
+
+Relative y luego sticky

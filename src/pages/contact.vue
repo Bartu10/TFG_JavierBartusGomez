@@ -2,7 +2,7 @@
 <div class="base">
   <div class="login-form">
     <span>Estamos aquí para ayudarte en todo lo que necesites. No dudes en contactarnos si tienes alguna duda, comentario o sugerencia.</span>
-    <form @submit.prevent="login">
+    <form @submit.prevent="enviarCorreo">
       <div class="form-group">
         <label for="nombre">Nombre:</label>
 		<input id="nombre" type="text" name="name" v-model="name">
@@ -24,6 +24,8 @@
 </template>
 
 <script>
+import axios from 'axios';
+
 export default {
   data() {
     return {
@@ -32,6 +34,16 @@ export default {
         mensaje: ''
     };
   },
+
+  methods:{
+    async enviarCorreo(){
+        await axios.post('http://localhost:3000/sendMail', {
+            name: this.name,
+            email: this.email,
+            mensaje: this.mensaje
+        })
+    }
+  }
 };
 </script>
 

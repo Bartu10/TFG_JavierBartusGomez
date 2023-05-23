@@ -27,9 +27,8 @@
     <div>
         <i class="fa fa-times" aria-hidden="true" @click="toggleMenu"></i>
       <div class="latbar">
-        <span><i class="fa-solid fa-user-gear"></i>Mis Datos</span>
+        <span @click="this.$router.push('/user')"><i class="fa-solid fa-user-gear"></i>Mis Datos</span>
         <span><i class="fa-solid fa-box"></i>Pedidos</span>
-        <span><i class="fa-solid fa-star"></i>Favoritos</span>
         <span @click="this.$router.push('/contact')"><i class="fa-solid fa-circle-question"></i>Contacto</span>
         <span @click="closeSession"><i class="fa-solid fa-right-from-bracket"></i> Cerrar Sesión</span>
       </div>
@@ -89,24 +88,11 @@ export default {
 };
 </script>
 
-<style lang="scss">
-.page--disabled {
-  pointer-events: none;
-  user-select: none;
-}
-@keyframes cambio-color {
-  0% { color: white; }
-  50% { color: #111 }
-  100% { color: black; }
-}
-.menu{
-  font-family: 'WorkSans';
-}
-</style>
-
 <style lang="scss" scoped>
 
 .latbar{
+  user-select: none;
+  cursor: pointer;
   span:hover{
     animation: cambio-color 2s infinite;
   }
@@ -121,7 +107,7 @@ export default {
   height: 40px;
 
   span{
-    font-size: 140% ;
+    font-size: 130% ;
     font-family: 'WorkSans' ;
     color: white;
     padding-top: 13px;
@@ -138,12 +124,15 @@ export default {
 
 
 .fa-times{
-color: red;
+color: white;
 font-size: 150%;
 padding-right: 9px;
 padding-top: 5px;
 }
 
+.fa-times:hover{
+  color: red;
+}
 .user-button {
   z-index: 12;
   border: none;
@@ -231,5 +220,36 @@ li a:hover {
     }
   }
 }
+
+
+
+
+</style>
+
+<style lang="scss">
+.page--disabled {
+  pointer-events: none;
+  user-select: none;
+}
+@keyframes cambio-color {
+  0% { color: black; }
+  50% { color: white; }
+  100% { color: black; }
+}
+
+.menu{
+  font-family: 'WorkSans';
+}
+
+@media (max-width: 500px) {
+.icon {
+  height: 20px;
+  span{
+    display: none;
+  }
+}
+}
+
+
 
 </style>
