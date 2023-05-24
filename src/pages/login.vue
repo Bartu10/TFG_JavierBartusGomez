@@ -136,6 +136,7 @@ body{
       cursor: pointer;
       &:hover {
         background-color: #4CA686;
+        cursor: pointer;
       }
     }
   }

@@ -95,6 +95,7 @@ export default {
   cursor: pointer;
   span:hover{
     animation: cambio-color 2s infinite;
+    cursor: pointer;
   }
 }
 
@@ -132,6 +133,7 @@ padding-top: 5px;
 
 .fa-times:hover{
   color: red;
+  cursor: pointer;
 }
 .user-button {
   z-index: 12;
@@ -150,6 +152,7 @@ padding-top: 5px;
 
 .user-button:hover i {
   color: greenyellow;
+  cursor: pointer;
 }
 
 ul {
@@ -174,6 +177,7 @@ li a {
 
 li a:hover {
   background-color: #111;
+  cursor: pointer;
 }
 
 .menu {

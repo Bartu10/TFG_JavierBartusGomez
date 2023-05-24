@@ -7,11 +7,13 @@
   </div>
   <div class="grid">
   <div v-for="producto in product" :key="producto.nombre" class="cell" @click="this.$router.push(`/product/${producto.id}`)">
-    <img :src=producto.img class="icon">
-    <h3>{{ producto.name }}</h3>
-    <p>Precio: {{ producto.price }}</p>
-    <p>{{ producto.team }}</p>
-    <p>{{ producto.yr }}</p>
+    <div class="product">
+  <img class="product-image" :src="producto.img" alt="Imagen del Producto 1">
+  <div class="product-info">
+    <h3 class="product-name">{{producto.name}}</h3>
+    <p class="product-price">{{producto.price}}€</p>
+  </div>
+</div>
   </div>
 </div>
 </div>
@@ -91,6 +93,64 @@
 
 @import '../scss/global.scss';
 
+.product {
+  cursor: pointer;
+  margin: 2rem;
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  transition: transform 0.3s ease;
+
+  &:hover {
+    transform: translateY(-5px);
+  }
+}
+
+.product-image {
+  width: 120px;
+  height: 120px;
+  border-radius: 6px;
+  object-fit: cover;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.product-info {
+  flex: 1;
+  margin-left: 20px;
+}
+
+.product-name {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.product-price {
+  font-size: 18px;
+  color: #888;
+  margin-bottom: 15px;
+}
+
+.product-button {
+  background-color: #ff6b6b;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: #e96060;
+  }
+}
+
 .openerDiv{
   border: 10px;
   width: 50px;
@@ -132,7 +192,7 @@
         font-family: 'WorkSans';
         margin-top:2% ;
         display: grid;
-        grid-template-columns: auto auto auto auto;
+        grid-template-columns: auto auto auto;
         width: 100%;
         .icon{
           width: 20%;
@@ -141,6 +201,33 @@
       .cell {
         text-align: center;
       }
+
+@media (max-width: 1000px) {
+  .product{
+    flex-direction: column;
+  }
+  .grid {
+    grid-template-columns: auto auto;
+  }
+}
+
+@media (max-width: 600px) {
+  .grid {
+    grid-template-columns: auto;
+    width: 300px;
+  }
+  .filtersOpen{
+    width: 100%;
+  }
+  .openerDiv{
+    width: 100px;
+  }
+
+
+
+}
+
+
 
 
 

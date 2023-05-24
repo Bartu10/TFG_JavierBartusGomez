@@ -58,11 +58,13 @@
   .first:hover .img-container img,
   .second:hover .img-container img {
     opacity: 0.5;
+    cursor: pointer;
   }
 
   .first:hover .img-text,
   .second:hover .img-text {
     opacity: 1;
+    cursor: pointer;
   }
 
   .first img,

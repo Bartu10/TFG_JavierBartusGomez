@@ -86,16 +86,39 @@ export default {
   methods:{
 
 
-    passwordSecurity(){
+    async passwordSecurity(){
       console.log("Introduced ",this.password)
-      console.log("User ",this.user.password)
-      if (this.user.password == this.password){
-        this.Security = true
-        this.editSecurity = false
-      }
-      else{
-        this.Security = false
-      }
+
+      const user = {
+        email: this.$store.state.user,
+        password: this.password,
+      };
+
+
+      console.log(user)
+      const token = this.$store.state.token
+      await fetch("http://localhost:8080/users/login", {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json",
+    Authorization: `Bearer ${token}`,
+  },
+  body: JSON.stringify(user),
+})
+  .then(response => response.json())
+  .then(data => {
+    if (data.status == 200){
+      this.Security = true;
+      this.editSecurity = false;
+    }
+    console.log("data",data)
+
+  })
+  .catch(error => {
+    console.log(error);
+    this.Security = false;
+  });
+      
     
     },
 
@@ -166,6 +189,7 @@ display: none;
       cursor: pointer;
       &:hover {
         background-color: #4CA686;
+        cursor: pointer;
       }
     }
 .closeSecurity{
@@ -299,6 +323,7 @@ h3 {
 
 .menu-list li a:hover {
   text-decoration: underline;
+  cursor: pointer;
 }
 
 
