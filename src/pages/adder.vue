@@ -60,7 +60,7 @@ export default {
             precio:'',
             estado:'',
             yr:'',
-            retro:'',
+            retro:true,
             equipo:'',
             imagen:'',
             xl:'',

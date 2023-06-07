@@ -1,13 +1,18 @@
 <template>
     <div class="main">
         <div class="first">
-            <div class="img-container">
+            <div class="img-container" @click="this.$router.push({
+              path: '/products',
+              query: { retro: false }
+            })">
             <img src="../img/young.png">
             <span class="img-text">Temporada Actual</span>
                     </div>
         </div>
         <div class="second">
-            <div class="img-container">
+            <div class="img-container" @click="this.$router.push({
+              path: '/products', query: { retro: true } 
+            })">
                 <img src="../img/Liverpool.png">
                 <span class="img-text">Retro</span>
             </div>

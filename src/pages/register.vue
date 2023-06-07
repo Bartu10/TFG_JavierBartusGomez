@@ -1,28 +1,33 @@
 <template>
 
-    <h3>Registrate aqui!</h3>
+    <p class="titleR">¡Crea tu cuenta!</p>
 
     <div class="base">
       <div class="login-form">
         <form @submit.prevent="register">
             <div class="form-group">
             <label for="name">Name:</label>
+            <br>
             <input id="name" type="text" v-model="name">
           </div>
           <div class="form-group">
             <label for="username">Username:</label>
+            <br>
             <input id="username" type="text" v-model="username">
           </div>
             <div class="form-group">
             <label for="email">Email:</label>
+            <br>
             <input id="email" type="text" v-model="email">
           </div>
           <div class="form-group">
             <label for="password"> Password:</label>
+            <br>
             <input id="password" type="password" v-model="password">
           </div>
           <div class="form-group">
-            <label for="password2"> Password2:</label>
+            <label for="password2"> Password:</label>
+            <br>
             <input id="password2" type="password" v-model="password2">
           </div>
           <button class="btn" type="submit">Iniciar sesión</button>
@@ -83,17 +88,29 @@ methods: {
 
 @import '../scss/global.scss';
 
+
+*{
+  font-family: 'WorkSans';
+}
+
 body{
   background-color: $principalGreen;
+}
+
+.titleR{
+  font-size: 3rem;
+  text-align: center;
+  margin-top: 5rem;
 }
 
 .login-form {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  height: 60vh;
 
   form {
+    width: 35%;
     border: 1px solid black;
     display: flex;
     flex-direction: column;
@@ -113,6 +130,7 @@ body{
         padding: 0.5rem;
         border-radius: 4px;
         border: 1px solid #ccc;
+        width: 95%;
         &:focus {
           outline: none;
           border-color: #5b5de5;

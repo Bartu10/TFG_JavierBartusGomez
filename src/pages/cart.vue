@@ -3,16 +3,21 @@
     <div v-for="(fav,index) in favs" :key="fav.nombre" class="cell">
       <img :src=fav.img class="icon">
       <div>
-      <h3>{{ fav.name }}</h3>
-      <p>Precio: {{ fav.price }}</p>
-      <p>Cantidad : <button @click="this.Decrease(index,1)">-</button>{{fav.quantity}}<button @click="this.Increase(index, 1)">+</button></p>
-      <p>Talla : {{fav.talla}}</p>
+      <p class="p-name">{{ fav.name }}</p>
+      <p class="p-talla">{{ fav.talla }}</p>
+      <p class="p-price">{{ fav.price }}€</p>
+      <div class="quantity">
+      <p class="p-quantity"><button @click="this.Decrease(index,1)" class="btn">-</button>{{fav.quantity}}<button @click="this.Increase(index, 1)" class="btn">+</button></p>
+      </div>
+      <p class="p-price">{{ fav.price * fav.quantity }}€</p>
       <a @click="deleteProductCart(index)"><i class="fa-solid fa-xmark"></i></a>
       </div>
     </div>
+    <div class="payment">
     <h2 v-if="!this.total == 0">Precio Total: {{' ' + this.total}}€</h2>
-    <button v-if="!this.total == 0" @click="callOrder">Comprar</button>
-    <button v-if="!this.total == 0" @click="clearCart">Limpiar Carrito</button>
+    <button v-if="!this.total == 0" @click="callOrder" class="btn">Comprar</button>
+    <button v-if="!this.total == 0" @click="clearCart" class="btn">Limpiar Carrito</button>
+    </div>
   </div>
   <div class="emptyCart" v-if="this.total == 0">
   <img class="imgCart" src="../img/carro-vacio.png">
@@ -109,8 +114,63 @@
   </script>
   
   <style lang="scss" scoped>
-  
+  @import "../scss/global.scss";
+
+
+
+  .fa-solid{
+    cursor: pointer;
+  }
+
+  .payment{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    margin-right: 5%;
+    margin-bottom: 4rem;
+  }
+
+  .btn {
+      font-size: 1.2rem;
+      margin: 2px;
+      background-color: $principalGreen;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      &:hover {
+        background-color: #4CA686;
+        cursor: pointer;
+      }
+    }
+  .quantity{
+    flex: none;
+  }
+
+
+  p{
+      margin-right: 13vw;
+  }
+
+  .p-titles{
+    display: flex;
+    margin-bottom: 2%;
+  }
+
+  @keyframes pulse{
+    0% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.1);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+
   .emptyCart{
+    animation: pulse 4s infinite;
     margin-top: 15%;
     display: flex;
     flex-direction:column ;
@@ -140,10 +200,14 @@
   .grid{
       padding-left: 5%;
       .cell{
+          width: 85%;
           display: flex;
           margin-top: 1%;
+          border-bottom: 1px solid lightgrey;
           div{
+              display: flex;
               margin-left: 2%;
+              align-items: center;
           }
       }
   }

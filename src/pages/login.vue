@@ -1,13 +1,18 @@
 <template>
+
+<p class="titleR">¡Inicia Sesion Aqui!</p>
+
 <div class="base">
   <div class="login-form">
     <form @submit.prevent="login">
       <div class="form-group">
         <label for="email">Email:</label>
+        <br>
         <input id="email" type="text" v-model="email">
       </div>
       <div class="form-group">
-        <label for="password"> Password:</label>
+        <label for="password"> Contraseña:</label>
+        <br>
         <input id="password" type="password" v-model="password">
       </div>
       <button class="btn" type="submit">Iniciar sesión</button>
@@ -32,7 +37,6 @@ export default {
         email: this.email,
         password: this.password,
       };
-
       await fetch("http://localhost:8080/token", {
         method: "POST",
         headers: {
@@ -47,16 +51,23 @@ export default {
         fetch("http://localhost:8080/users/login", {
           method: "POST",
           headers: {
-            "Content-Type": "application/json",
+            "Content-Type": 'application/json',
             Authorization: `Bearer ${token}`,
           },
           body: JSON.stringify(user),
         })
-        .then(response => response.json())
+        .then(data => {
+          console.log(data.status)
+          if(data.status == 200){
           this.$store.commit('setLogged', true)
           this.$store.commit('setUser', user.email)
           this.$store.commit('setToken', token)
           this.$router.push('/')
+          
+      }})
+        
+          
+          
       })
       
     },
@@ -93,13 +104,23 @@ body{
   background-color: $principalGreen;
 }
 
+*{
+  font-family: 'WorkSans';
+}
+.titleR{
+  font-size: 3rem;
+  text-align: center;
+  margin-top: 5rem;
+}
+
 .login-form {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  height: 60vh;
 
   form {
+    width: 25%;
     border: 1px solid black;
     display: flex;
     flex-direction: column;
@@ -115,6 +136,7 @@ body{
         margin-bottom: 0.5rem;
       }
       input {
+        width: 96%;
         font-size: 1.2rem;
         padding: 0.5rem;
         border-radius: 4px;

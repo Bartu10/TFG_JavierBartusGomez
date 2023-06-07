@@ -1,6 +1,6 @@
 <template>
   <div class="profile-menu">
-    <img :src="this.user.s" alt="Profile Picture" class="profile-picture" @click="securityPhoto()">
+    <img :src=this.url alt="Profile Picture" class="profile-picture" @click="securityPhoto()">
     <div class="infoUser">
     <div class="titlePen">
     <span class="title">Tarjeta de Usuario</span>
@@ -47,7 +47,7 @@
     </div>
 
   </div>
-    <input v-if="editPhoto && Security" ref="fileInput" id="addImage" type="file" class="styled-input" placeholder="Ingresa tu texto">
+    <input v-if="editPhoto && Security" @change="changeImg" ref="fileInput" id="addImage" type="file" class="styled-input" placeholder="Ingresa tu texto">
   <div class="popup-container" v-if="this.editSecurity">
     <div class="popup">
       <div class="closeSecurity">
@@ -65,6 +65,7 @@
 </template>
   
 <script>
+import axios from "axios";
 export default {
   data() {
     return {
@@ -74,18 +75,89 @@ export default {
       user: '',
       edit: false,
       editPhoto: false,
+      url: '',
     };
   },
 
 
-  created() {
-    this.callUser();
+  async created() {
+    await this.callUser();
+    console.log("user",this.user);
+    await this.getImg();
   },
 
 
   methods:{
 
 
+    async getImg(){
+      const token = this.$store.state.token;
+      console.log("imageid",this.user.imageid)
+      const getImage = await axios.get(`http://localhost:8080/images/${this.user.imageid}`, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`
+        }, 
+      });
+
+      console.log("jhioqhfouiwejhgiowhjgiowrHBGOUERHBGERIOHag",getImage.data)
+      this.url = getImage.data;
+
+    }
+,
+
+
+    async changeImg(e) {
+  const file = e.target.files[0];
+  const token = this.$store.state.token;
+
+  // Create a FormData object to send the image file
+  const formData = new FormData();
+  formData.append('image', file);
+  formData.append('title', 'Profile Picture');
+
+  // Make a POST request to the server endpoint
+  await axios.post('http://localhost:8080/images/add', formData, {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+      Authorization: `Bearer ${token}`,
+    },
+  })
+    .then(async response => {
+      // Handle the response from the server
+      console.log("imageidddddd",response.data);
+      const imageid = response.data;
+      
+
+      console.log("imageid",imageid)
+      // Make the PUT request to update the user's image
+      const editUI = await axios.put(`http://localhost:8080/user/image/${this.$store.state.user}/`, { "imageid" : imageid}, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      
+      console.log("editUI",editUI.data.imageid);
+      //todo:aqui cambiar la imagen del usuario
+      const getImage = await axios.get(`http://localhost:8080/images/${editUI.data.imageid}`, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`
+        }, 
+      });
+
+      console.log(getImage.data)
+      this.url = getImage.data;
+
+
+      // You can update the user's image or perform any other necessary actions here
+    })
+    .catch(error => {
+      console.error(error);
+      // Handle the error in case it occurs
+    });
+},
     async passwordSecurity(){
       console.log("Introduced ",this.password)
 
@@ -97,6 +169,7 @@ export default {
 
       console.log(user)
       const token = this.$store.state.token
+      console.log("prelogin")
       await fetch("http://localhost:8080/users/login", {
   method: "POST",
   headers: {
@@ -105,8 +178,9 @@ export default {
   },
   body: JSON.stringify(user),
 })
-  .then(response => response.json())
   .then(data => {
+    console.log(data)
+    console.log(user)
     if (data.status == 200){
       this.Security = true;
       this.editSecurity = false;
@@ -148,12 +222,10 @@ export default {
     },
 
   
- 
-
-
 
     async callUser(){
       const token = this.$store.state.token
+      console.log("preGetUser")
       const response = await fetch(`http://localhost:8080/users/mail/${this.$store.state.user}/`, {
         method: "GET",
         headers: {
@@ -165,7 +237,7 @@ export default {
         console.error(error); 
       });
       this.user = response
-      console.log(response) 
+      console.log("userFunctions",this.user) 
     },
 
   }
@@ -207,11 +279,13 @@ display: none;
 
 .label{
   font-weight: bold;
-  margin-right: 10px;
-  font-size: 120%;
+  margin-right: 100px;
+  font-size: 135%;
 }
 
 .notEdit{
+  margin-bottom: 165px;
+  margin-top: 50px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -232,11 +306,13 @@ p, span, input{
   }
 
 span{
-  padding-top: 5%;
+
+  font-size: 120%;
+  padding-top: 11%;
 }
 
 .title{
-  font-size: 150%;
+  font-size: 200%;
   padding: 0%;
   margin-right: auto;
 }
@@ -253,8 +329,7 @@ span{
   width: 100%;
   margin-left: 60px;
   height: 400px;
-  display: flex;
-  flex-direction: column;
+  display: grid;
   align-items: center;
   background-color: #f0f0f0;
   padding: 20px;
@@ -274,8 +349,8 @@ span{
 
 
 .profile-picture {
-  width:40%;
-  height: 20rem;
+  width: 400px;
+  height: 400px;
   border-radius: 50%;
   margin-bottom: 10px;
 }
@@ -283,7 +358,6 @@ span{
 @keyframes pulse {
   0% {
     transform: scale(1);
-    
   }
   50% {
     transform: scale(1.01);
@@ -327,12 +401,6 @@ h3 {
 }
 
 
-
-
-
-
-
-
 .input-container {
   position: relative;
   margin: 20px;
@@ -360,7 +428,11 @@ h3 {
 }
 
 .user-info {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+
   .info-row {
+    padding: 30px;
     display: flex;
     margin-bottom: 10px;
   }

@@ -28,7 +28,7 @@
         <i class="fa fa-times" aria-hidden="true" @click="toggleMenu"></i>
       <div class="latbar">
         <span @click="this.$router.push('/user')"><i class="fa-solid fa-user-gear"></i>Mis Datos</span>
-        <span><i class="fa-solid fa-box"></i>Pedidos</span>
+        <span @click="this.$router.push('/orders')"><i class="fa-solid fa-box"></i>Pedidos</span>
         <span @click="this.$router.push('/contact')"><i class="fa-solid fa-circle-question"></i>Contacto</span>
         <span @click="closeSession"><i class="fa-solid fa-right-from-bracket"></i> Cerrar Sesión</span>
       </div>
@@ -200,8 +200,9 @@ li a:hover {
     flex-direction: column;
     background-color: $principalGreen;
     width: 28.5rem;
-    height: 60rem;
-    opacity: 1 ;
+    height: 50rem;
+    opacity: 1;
+    border-bottom-left-radius: 20px;
     
   .fa-solid{
     padding-right: 10px;
