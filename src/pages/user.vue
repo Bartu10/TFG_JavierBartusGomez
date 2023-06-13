@@ -4,7 +4,7 @@
     <div class="infoUser">
     <div class="titlePen">
     <span class="title">Tarjeta de Usuario</span>
-    <i class="fa-solid fa-pencil" @click=securityCard()></i>
+    <i class="fa-solid fa-pencil" v-if="edit == false" @click=securityCard()></i>
     </div>
     <div class="notEdit" v-if="edit == false">
       <div class="user-info">
@@ -29,20 +29,22 @@
     <div class="edit" v-if="edit & Security">
     <div class="input-container">
     <span class="label">Nombre:</span>
-    <input type="text" class="styled-input" placeholder="Ingresa tu nombre">
+    <input type="text" class="styled-input" v-model="this.user.name" placeholder="Ingresa tu nombre" required>
     </div>
     <div class="input-container">
       <span class="label">Email:</span>
-    <input type="text" class="styled-input" placeholder="Ingresa tu email">
+    <input type="text" class="styled-input" v-model="this.user.email" placeholder="Ingresa tu email" required>
     </div>
     <div class="input-container">
       <span class="label">Nick:</span>
-    <input type="text" class="styled-input" placeholder="Ingresa tu nick">
+    <input type="text" class="styled-input" v-model="this.user.username" placeholder="Ingresa tu nick" required>
     </div>
     <div class="input-container">
       <span class="label">Password:</span>
-    <input type="text" class="styled-input" placeholder="Ingresa tu password">
+        <input type="password" class="styled-input" v-model="this.user.password" placeholder="Ingresa tu password" required>
     </div>
+    <button class="btn" @click="changeUser()">Guardar</button>
+    <p>{{ this.validationMessage }}</p>
     </div>
     </div>
 
@@ -57,193 +59,222 @@
       <p>Ingresa la contraseña para continuar</p>
       <input type="password" class="styled-input" placeholder="Ingresa tu contraseña" v-model="password">
       <button class="btn" @click="passwordSecurity()">Enviar</button>
+
       
     </div>
   </div>
 
 
 </template>
-  
 <script>
 import axios from "axios";
 export default {
   data() {
     return {
-      password: '',
-      editSecurity: false,
-      Security: false,
-      user: '',
-      edit: false,
-      editPhoto: false,
-      url: '',
+      validationMessage: "",   // Mensaje de validación de la contraseña
+      password: '',   // Contraseña del usuario
+      editSecurity: false,   // Bandera para indicar si se está editando la seguridad del perfil
+      Security: false,   // Bandera para indicar si la seguridad está habilitada
+      user: '',   // Información del usuario
+      edit: false,   // Bandera para indicar si se está editando la tarjeta de usuario
+      editPhoto: false,   // Bandera para indicar si se está editando la foto de perfil
+      url: '',   // URL de la imagen de perfil
+      passwordInput: '',  
     };
   },
 
 
   async created() {
-    await this.callUser();
-    console.log("user",this.user);
-    await this.getImg();
+    await this.callUser();   // Llama a la función para obtener la información del usuario
+    console.log("user", this.user);
+    await this.getImg();   // Llama a la función para obtener la imagen de perfil del usuario
   },
 
+  methods: {
 
-  methods:{
 
+    passwordValidate(value) { //Aqui valido la contraseña
+      const pattern = /^[a-zA-Z0-9]{6,12}$/;
+      console.log("value",value)
+      if (pattern.test(value)) {
+        console.log("pasa")
+        this.validationMessage = "";
+        return true;
+      } else {
+        console.log("nopasa")
+        this.validationMessage = "La contraseña debe tener entre 6 y 12 caracteres alfanuméricos.";
+        return false;
+      }
+    },
 
-    async getImg(){
+    async getImg() { //Obtengo la imagen del usuario
       const token = this.$store.state.token;
-      console.log("imageid",this.user.imageid)
+      console.log("imageid", this.user.imageid);
       const getImage = await axios.get(`http://localhost:8080/images/${this.user.imageid}`, {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`
-        }, 
+        },
       });
 
-      console.log("jhioqhfouiwejhgiowhjgiowrHBGOUERHBGERIOHag",getImage.data)
+      console.log("jhioqhfouiwejhgiowhjgiowrHBGOUERHBGERIOHag", getImage.data);
       this.url = getImage.data;
-
-    }
-,
-
-
-    async changeImg(e) {
-  const file = e.target.files[0];
-  const token = this.$store.state.token;
-
-  // Create a FormData object to send the image file
-  const formData = new FormData();
-  formData.append('image', file);
-  formData.append('title', 'Profile Picture');
-
-  // Make a POST request to the server endpoint
-  await axios.post('http://localhost:8080/images/add', formData, {
-    headers: {
-      'Content-Type': 'multipart/form-data',
-      Authorization: `Bearer ${token}`,
     },
-  })
-    .then(async response => {
-      // Handle the response from the server
-      console.log("imageidddddd",response.data);
-      const imageid = response.data;
-      
 
-      console.log("imageid",imageid)
-      // Make the PUT request to update the user's image
-      const editUI = await axios.put(`http://localhost:8080/user/image/${this.$store.state.user}/`, { "imageid" : imageid}, {
+    async changeUser() { //Función para editar la información del usuario
+      if(!  this.passwordValidate(this.user.password)){
+        console.log("no pasa")
+        return;
+      }
+      console.log("pasa")
+      this.edit = false
+      const token = this.$store.state.token;
+
+      const user = {
+        name: this.user.name,
+        email: this.user.email,
+        username: this.user.username,
+        password: this.user.password,
+        admin: true,
+      };
+      console.log("user", user);
+      const editUser = await axios.put(`http://localhost:8080/user/update/${this.$store.state.user}/`, user, {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
       });
-      
-      console.log("editUI",editUI.data.imageid);
-      //todo:aqui cambiar la imagen del usuario
-      const getImage = await axios.get(`http://localhost:8080/images/${editUI.data.imageid}`, {
+      console.log("usuario a editar",user)
+      console.log("editUser", editUser.data);
+
+      this.edit = false;
+    },
+
+    async changeImg(e) { //Función para editar la imagen de perfil del usuario
+      const file = e.target.files[0];
+      const token = this.$store.state.token;
+
+      // Crear un objeto FormData para enviar el archivo de imagen
+      const formData = new FormData();
+      formData.append('image', file);
+      formData.append('title', 'Profile Picture');
+
+      // Hacer una solicitud POST al endpoint del servidor
+      await axios.post('http://localhost:8080/images/add', formData, {
         headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`
-        }, 
-      });
+          'Content-Type': 'multipart/form-data',
+          Authorization: `Bearer ${token}`,
+        },
+      })
+        .then(async response => {
+          // Manejar la respuesta del servidor
+          console.log("imageidddddd", response.data);
+          const imageid = response.data;
 
-      console.log(getImage.data)
-      this.url = getImage.data;
+          console.log("imageid", imageid);
+          // Hacer la solicitud PUT para actualizar la imagen del usuario
+          const editUI = await axios.put(`http://localhost:8080/user/image/${this.$store.state.user}/`, { "imageid": imageid }, {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+          });
 
+          console.log("editUI", editUI.data.imageid);
+          // TODO: Aquí se debe cambiar la imagen del usuario
+          const getImage = await axios.get(`http://localhost:8080/images/${editUI.data.imageid}`, {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`
+            },
+          });
 
-      // You can update the user's image or perform any other necessary actions here
-    })
-    .catch(error => {
-      console.error(error);
-      // Handle the error in case it occurs
-    });
-},
-    async passwordSecurity(){
-      console.log("Introduced ",this.password)
+          console.log(getImage.data);
+          this.url = getImage.data;
+
+          // Se puede actualizar la imagen del usuario u realizar cualquier otra acción necesaria aquí
+        })
+        .catch(error => {
+          console.error(error);
+          // Manejar el error en caso de que ocurra
+        });
+    },
+
+    async passwordSecurity() {
+      console.log("Introduced ", this.password);
 
       const user = {
         email: this.$store.state.user,
         password: this.password,
       };
 
-
-      console.log(user)
-      const token = this.$store.state.token
-      console.log("prelogin")
+      console.log(user);
+      const token = this.$store.state.token;
+      console.log("prelogin");
       await fetch("http://localhost:8080/users/login", {
-  method: "POST",
-  headers: {
-    "Content-Type": "application/json",
-    Authorization: `Bearer ${token}`,
-  },
-  body: JSON.stringify(user),
-})
-  .then(data => {
-    console.log(data)
-    console.log(user)
-    if (data.status == 200){
-      this.Security = true;
-      this.editSecurity = false;
-    }
-    console.log("data",data)
-
-  })
-  .catch(error => {
-    console.log(error);
-    this.Security = false;
-  });
-      
-    
-    },
-
-
-
-    securityPhoto(){
-      if(this.Security == true){
-        this.editPhoto = true
-        this.$nextTick(() => {
-          this.$refs.fileInput.click(); // Activar clic en el input de archivo
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(user),
+      })
+        .then(data => {
+          console.log(data);
+          console.log(user);
+          if (data.status == 200) {
+            this.Security = true;
+            this.editSecurity = false;
+          }
+          console.log("data", data);
+        })
+        .catch(error => {
+          console.log(error);
+          this.Security = false;
         });
-              
+    },
+
+    securityPhoto() {
+      if (this.Security == true) {
+        this.editPhoto = true;
+        this.$nextTick(() => {
+          this.$refs.fileInput.click();   // Activar clic en el input de archivo
+        });
       }
-      if(this.Security == false){
-        this.editSecurity = true
+      if (this.Security == false) {
+        this.editSecurity = true;
       }
     },
 
-    securityCard(){
-      if(this.Security == true){
-        this.edit = !this.edit
-              
+    securityCard() {
+      if (this.Security == true) {
+        this.edit = !this.edit;
       }
-      if(this.Security == false){
-        this.editSecurity = true
+      if (this.Security == false) {
+        this.editSecurity = true;
       }
     },
 
-  
-
-    async callUser(){
-      const token = this.$store.state.token
-      console.log("preGetUser")
+    async callUser() {
+      const token = this.$store.state.token;
+      console.log("preGetUser");
       const response = await fetch(`http://localhost:8080/users/mail/${this.$store.state.user}/`, {
         method: "GET",
         headers: {
           Authorization: `Bearer ${token}`,
         },
       })
-      .then(response => response.json())
-      .catch(error => {
-        console.error(error); 
-      });
-      this.user = response
-      console.log("userFunctions",this.user) 
+        .then(response => response.json())
+        .catch(error => {
+          console.error(error);
+        });
+      this.user = response;
+      console.log("userFunctions", this.user);
     },
-
   }
-
 };
 </script>
+
 <style lang="scss" scoped>
 @import '../scss/global.scss';
 
@@ -279,13 +310,11 @@ display: none;
 
 .label{
   font-weight: bold;
-  margin-right: 100px;
-  font-size: 135%;
+  margin-right: 10px;
+  font-size: 120%;
 }
 
 .notEdit{
-  margin-bottom: 165px;
-  margin-top: 50px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -306,13 +335,11 @@ p, span, input{
   }
 
 span{
-
-  font-size: 120%;
-  padding-top: 11%;
+  padding-top: 5%;
 }
 
 .title{
-  font-size: 200%;
+  font-size: 150%;
   padding: 0%;
   margin-right: auto;
 }
@@ -329,7 +356,8 @@ span{
   width: 100%;
   margin-left: 60px;
   height: 400px;
-  display: grid;
+  display: flex;
+  flex-direction: column;
   align-items: center;
   background-color: #f0f0f0;
   padding: 20px;
@@ -349,8 +377,8 @@ span{
 
 
 .profile-picture {
-  width: 400px;
-  height: 400px;
+  width: 20%;
+  height: 20rem;
   border-radius: 50%;
   margin-bottom: 10px;
 }
@@ -358,6 +386,7 @@ span{
 @keyframes pulse {
   0% {
     transform: scale(1);
+    
   }
   50% {
     transform: scale(1.01);
@@ -401,6 +430,12 @@ h3 {
 }
 
 
+
+
+
+
+
+
 .input-container {
   position: relative;
   margin: 20px;
@@ -428,11 +463,7 @@ h3 {
 }
 
 .user-info {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-
   .info-row {
-    padding: 30px;
     display: flex;
     margin-bottom: 10px;
   }

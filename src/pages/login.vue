@@ -1,99 +1,84 @@
 <template>
+  <!-- Formulario de inicio de sesión -->
+  <p class="titleR">¡Inicia Sesion Aqui!</p>
 
-<p class="titleR">¡Inicia Sesion Aqui!</p>
-
-<div class="base">
-  <div class="login-form">
-    <form @submit.prevent="login">
-      <div class="form-group">
-        <label for="email">Email:</label>
-        <br>
-        <input id="email" type="text" v-model="email">
+  <div class="base">
+      <div class="login-form">
+          <form @submit.prevent="login">
+              <!-- Campo de entrada para el correo electrónico -->
+              <div class="form-group">
+                  <label for="email">Email:</label>
+                  <br>
+                  <input id="email" type="text" v-model="email">
+              </div>
+              <!-- Campo de entrada para la contraseña -->
+              <div class="form-group">
+                  <label for="password"> Contraseña:</label>
+                  <br>
+                  <input id="password" type="password" v-model="password">
+              </div>
+              <!-- Botón para iniciar sesión -->
+              <button class="btn" type="submit">Iniciar sesión</button>
+              <!-- Enlace para registrarse -->
+              <a @click="this.$router.push('/register')">Registrate aquí</a>
+          </form>
       </div>
-      <div class="form-group">
-        <label for="password"> Contraseña:</label>
-        <br>
-        <input id="password" type="password" v-model="password">
-      </div>
-      <button class="btn" type="submit">Iniciar sesión</button>
-      <a @click="this.$router.push('/register')">Registrate aquí</a>
-    </form>
-  </div>
   </div>
 </template>
-
 <script>
 export default {
-  data() {
-    return {
-      email: '',
-      password: '',
-    };
-  },
-  methods: {
-    async login() {
-
-      const user = {
-        email: this.email,
-        password: this.password,
-      };
-      await fetch("http://localhost:8080/token", {
-        method: "POST",
-        headers: {
-          "Authorization": 'Basic ' + window.btoa("javi@gmail.com" + ':' + "123"),
-          "Content-Type": "application/json",
-        },
-        
-      })
-      .then(response => response.text())
-      .then(token => {
-        console.log(token)
-        fetch("http://localhost:8080/users/login", {
-          method: "POST",
-          headers: {
-            "Content-Type": 'application/json',
-            Authorization: `Bearer ${token}`,
-          },
-          body: JSON.stringify(user),
-        })
-        .then(data => {
-          console.log(data.status)
-          if(data.status == 200){
-          this.$store.commit('setLogged', true)
-          this.$store.commit('setUser', user.email)
-          this.$store.commit('setToken', token)
-          this.$router.push('/')
-          
-      }})
-        
-          
-          
-      })
-      
+    data() {
+        return {
+            email: '',
+            password: '',
+        };
     },
-
-
-    /*async getUser(){
-      const response = await fetch(`http://localhost:8080/users/${this.email}`, {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
+    methods: {
+        async login() {
+            // Objeto con los datos del usuario para iniciar sesión
+            const user = {
+                email: this.email,
+                password: this.password,
+            };
+            // Realizar solicitud para obtener el token de autenticación
+            await fetch("http://localhost:8080/token", {
+                method: "POST",
+                headers: {
+                    "Authorization": 'Basic ' + window.btoa("javi@gmail.com" + ':' + "123"),
+                    "Content-Type": "application/json",
+                },
+            })
+            .then(response => response.text())
+            .then(token => {
+                console.log(token);
+                // Realizar solicitud para iniciar sesión con el token y los datos del usuario
+                fetch("http://localhost:8080/users/login", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": 'application/json',
+                        Authorization: `Bearer ${token}`,
+                    },
+                    body: JSON.stringify(user),
+                })
+                .then(data => {
+                    console.log(data.status);
+                    if(data.status == 200){
+                        // Establecer el estado de inicio de sesión en el almacenamiento
+                        this.$store.commit('setLogged', true);
+                        this.$store.commit('setUser', user.email);
+                        this.$store.commit('setToken', token);
+                        this.$router.push('/');
+                    }
+                });
+            });
         },
-      })
-      const data = await response.json();
-      this.$store.commit('setUser', data)
-    }
 
-
-    Made it in Springboot
-    */
-
-    async closeSesion(){
-        this.$store.commit('setLogged', false)
-        this.$store.commit('setUser', '')
-    }
-  },
+        async closeSesion(){
+            // Cerrar sesión y restablecer el estado de inicio de sesión en el almacenamiento
+            this.$store.commit('setLogged', false);
+            this.$store.commit('setUser', '');
+        }
+    },
 };
 </script>
 
@@ -101,66 +86,76 @@ export default {
 @import '../scss/global.scss';
 
 body{
-  background-color: $principalGreen;
+    background-color: $principalGreen; // Establece el color de fondo del cuerpo
 }
 
 *{
-  font-family: 'WorkSans';
+    font-family: 'WorkSans'; // Establece la fuente para todos los elementos del documento
 }
+
 .titleR{
-  font-size: 3rem;
-  text-align: center;
-  margin-top: 5rem;
+    font-size: 3rem; // Tamaño de fuente del título
+    text-align: center; // Alineación centrada del título
+    margin-top: 5rem; // Margen superior del título
 }
 
 .login-form {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 60vh;
-
-  form {
-    width: 25%;
-    border: 1px solid black;
     display: flex;
-    flex-direction: column;
-    background-color: #fff;
-    padding: 2rem;
-    border-radius: 8px;
-    box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
+    justify-content: center;
+    align-items: center;
+    height: 60vh; // Altura del formulario de inicio de sesión
 
-    .form-group {
-      margin-bottom: 1rem;
-      label {
-        font-size: 1.2rem;
-        margin-bottom: 0.5rem;
-      }
-      input {
-        width: 96%;
-        font-size: 1.2rem;
-        padding: 0.5rem;
-        border-radius: 4px;
-        border: 1px solid #ccc;
-        &:focus {
-          outline: none;
-          border-color: #5b5de5;
+    form {
+        width: 25%; // Ancho del formulario
+        border: 1px solid black; // Borde del formulario
+        display: flex;
+        flex-direction: column;
+        background-color: #fff; // Color de fondo del formulario
+        padding: 2rem; // Espacio interno del formulario
+        border-radius: 8px; // Borde redondeado del formulario
+        box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1); // Sombra del formulario
+
+        a{
+            margin-top: 1rem; // Margen superior para el enlace de registro
+            text-align: center; // Alineación centrada para el enlace de registro
+            color: $principalGreen; // Color del texto del enlace
+            cursor: pointer;
+            &:hover {
+                color: $secondaryGreen; // Color del texto del enlace al pasar el cursor
+            }
         }
-      }
-    }
+        .form-group {
+            margin-bottom: 1rem; // Margen inferior para el grupo de elementos del formulario
+            label {
+                font-size: 1.2rem; // Tamaño de fuente para las etiquetas del formulario
+                margin-bottom: 0.5rem; // Margen inferior para las etiquetas del formulario
+            }
+            input {
+                width: 96%; // Ancho del campo de entrada del formulario
+                font-size: 1.2rem; // Tamaño de fuente para el campo de entrada
+                padding: 0.5rem; // Espacio interno para el campo de entrada
+                border-radius: 4px; // Borde redondeado para el campo de entrada
+                border: 1px solid #ccc; // Borde del campo de entrada
+                &:focus {
+                    outline: none; // Elimina el contorno al enfocar el campo de entrada
+                    border-color: #5b5de5; // Color del borde al enfocar el campo de entrada
+                }
+            }
+        }
 
-    .btn {
-      font-size: 1.2rem;
-      padding: 0.5rem 1rem;
-      background-color: $principalGreen;
-      color: #fff;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-      &:hover {
-        background-color: #4CA686;
-        cursor: pointer;
-      }
+        .btn {
+            font-size: 1.2rem; // Tamaño de fuente para el botón de inicio de sesión
+            padding: 0.5rem 1rem; // Espacio interno del botón de inicio de sesión
+            background-color: $principalGreen; // Color de fondo del botón de inicio de sesión
+            color: #fff; // Color del texto del botón de inicio de sesión
+            border: none; // Sin borde para el botón de inicio de sesión
+            border-radius: 4px; // Borde redondeado para el botón de inicio de sesión
+            cursor: pointer;
+            &:hover {
+                background-color: #4CA686; // Color de fondo al pasar el cursor sobre el botón de inicio de sesión
+                cursor: pointer;
+            }
+        }
     }
-  }
 }
 </style>

@@ -256,5 +256,17 @@ li a:hover {
 }
 
 
+@media(max-width: 450px){
+  .menu div div{
+  padding-left:85px ;
+}
+}
+
+@media(max-width: 375px){
+  .menu div div{
+  padding-left:100px ;
+}
+}
+
 
 </style>
