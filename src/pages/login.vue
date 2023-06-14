@@ -41,7 +41,7 @@ export default {
                 password: this.password,
             };
             // Realizar solicitud para obtener el token de autenticación
-            await fetch("http://localhost:8080/token", {
+            await fetch("https://proyectspring-production.up.railway.app/token", {
                 method: "POST",
                 headers: {
                     "Authorization": 'Basic ' + window.btoa("javi@gmail.com" + ':' + "123"),
@@ -52,7 +52,7 @@ export default {
             .then(token => {
                 console.log(token);
                 // Realizar solicitud para iniciar sesión con el token y los datos del usuario
-                fetch("http://localhost:8080/users/login", {
+                fetch("https://proyectspring-production.up.railway.app/users/login", {
                     method: "POST",
                     headers: {
                         "Content-Type": 'application/json',

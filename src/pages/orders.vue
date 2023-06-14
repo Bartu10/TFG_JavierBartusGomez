@@ -46,7 +46,7 @@ export default {
   methods: {
     async GetAllOrders() {
       const token = this.$store.state.token;
-      const response = await fetch(`http://localhost:8080/users/mail/${this.$store.state.user}/`, {
+      const response = await fetch(`https://proyectspring-production.up.railway.app/users/mail/${this.$store.state.user}/`, {
         method: 'GET',
         headers: {
           Authorization: `Bearer ${token}`,

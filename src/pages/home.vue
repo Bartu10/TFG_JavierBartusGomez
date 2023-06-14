@@ -67,7 +67,7 @@ export default {
 
     async getProducts() {
       const token = this.$store.state.token
-      const res = await fetch('http://localhost:8080/lowestSum', {
+      const res = await fetch('https://proyectspring-production.up.railway.app/lowestSum', {
         headers: {
           'Authorization': `Bearer ${token}`
         }

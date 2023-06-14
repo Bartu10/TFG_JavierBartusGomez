@@ -192,7 +192,7 @@ export default {
   // Obtiene la lista de productos desde el servidor
   const token = this.$store.state.token;
   try {
-    const response = await axios.get("http://localhost:8080/products/", {
+    const response = await axios.get("https://proyectspring-production.up.railway.app/products/", {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -226,14 +226,14 @@ export default {
       try {
         let response;
         if (this.selectedYear === "") {
-          response = await axios.get("http://localhost:8080/products/", {
+          response = await axios.get("https://proyectspring-production.up.railway.app/products/", {
             headers: {
               Authorization: `Bearer ${token}`,
             },
           });
         } else {
           response = await axios.get(
-            `http://localhost:8080/products/year/${this.selectedYear}`,
+            `https://proyectspring-production.up.railway.app/products/year/${this.selectedYear}`,
             {
               headers: {
                 Authorization: `Bearer ${token}`,
@@ -252,7 +252,7 @@ export default {
       const token = this.$store.state.token;
       try {
         const response = await axios.get(
-          `http://localhost:8080/products/retro/${this.retro}`,
+          `https://proyectspring-production.up.railway.app/products/retro/${this.retro}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -271,14 +271,14 @@ export default {
       try {
         let response;
         if (this.selectedTeam === "") {
-          response = await axios.get("http://localhost:8080/products/", {
+          response = await axios.get("https://proyectspring-production.up.railway.app/products/", {
             headers: {
               Authorization: `Bearer ${token}`,
             },
           });
         } else {
           response = await axios.get(
-            `http://localhost:8080/products/team/${this.selectedTeam}`,
+            `https://proyectspring-production.up.railway.app/products/team/${this.selectedTeam}`,
             {
               headers: {
                 Authorization: `Bearer ${token}`,
@@ -297,7 +297,7 @@ export default {
       const token = this.$store.state.token;
       try {
         const response = await axios.get(
-          `http://localhost:8080/products/state/${this.selectedState}`,
+          `https://proyectspring-production.up.railway.app/products/state/${this.selectedState}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,

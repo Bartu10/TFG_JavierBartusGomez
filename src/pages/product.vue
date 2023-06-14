@@ -51,7 +51,7 @@ export default {
     // Función para obtener los detalles del producto desde el servidor
     async callProduct() {
       const token = this.$store.state.token;
-      const url = `http://localhost:8080/products/${this.$route.params.id}/`;
+      const url = `https://proyectspring-production.up.railway.app/products/${this.$route.params.id}/`;
       const response = await fetch(url, {
         method: "GET",
         headers: {
