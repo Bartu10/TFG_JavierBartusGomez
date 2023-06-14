@@ -31,9 +31,15 @@ export default {
       quantity: '', // Variable no utilizada, se puede eliminar
       image: '', // Variable no utilizada, se puede eliminar
       favs: '', // Lista de productos favoritos en el carrito
-      total: 0 // Precio total del carrito
+      total: 0, // Precio total del carrito
+      isRegistred: false
     }
   },
+
+  mounted(){
+    this.isRegistered()
+  },
+
   methods: {
     async callOrder() {
       try {
@@ -60,7 +66,22 @@ export default {
         console.error(error);
       }
     },
+    checkRegistration() {
+      if (!this.isRegistred) {
+        this.$router.push('/login');
+      }
+      else{
+        this.callOrder()
+      }
+    },
 
+
+    isRegistered(){
+      console.log(this.$store.state.user)
+      if(!this.$store.state.user == "notLogged" || this.$store.state.user == ""){
+        this.isRegistred = true
+      }
+    },
     clearCart() {
       // Limpiar el carrito eliminando el elemento "cart" del almacenamiento local
       localStorage.removeItem("cart");
