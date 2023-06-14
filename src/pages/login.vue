@@ -44,7 +44,7 @@ export default {
             await fetch("https://proyectspring-production.up.railway.app/token", {
                 method: "POST",
                 headers: {
-                    "Authorization": 'Basic ' + window.btoa("javi@gmail.com" + ':' + "123"),
+                    "Authorization": 'Basic ' + window.btoa(this.email + ':' + this.password),
                     "Content-Type": "application/json",
                 },
             })

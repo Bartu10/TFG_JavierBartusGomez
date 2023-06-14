@@ -57,10 +57,30 @@ export default {
     }
   },
   created(){
+    this.login()
     this.getProducts() // Llama al método para obtener los productos al crear el componente
   },
   methods: {
-
+        async login() {
+            // Objeto con los datos del usuario para iniciar sesión
+            const user = {
+                email: "notLogged@gmail.com",
+                password: "notLogged",
+            };
+            // Realizar solicitud para obtener el token de autenticación
+            await fetch("https://proyectspring-production.up.railway.app/token", {
+                method: "POST",
+                headers: {
+                    "Authorization": 'Basic ' + window.btoa("notLogged@gmail.com" + ':' + "notLogged"),
+                    "Content-Type": "application/json",
+                },
+            })
+            .then(response => response.text())
+              this.$store.commit('setLogged', true);
+              this.$store.commit('setUser', "notLogged");
+              this.$store.commit('setToken', token);
+              console.log(this.$store.state.token)
+        },
     navigateToProduct(productId) {
       this.$router.push(`/product/${productId}`); // Redirige a la página de un producto específico
     },
