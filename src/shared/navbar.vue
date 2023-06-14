@@ -1,7 +1,7 @@
 <template>
   <ul>
     <li>
-      <a @click="toggleMenu"><i class="fas fa-user" @click="checkRegistration"></i></a>
+      <a @click="checkRegistration"><i class="fas fa-user"></i></a>
     </li>
     <li>
       <a @click="$router.push('/products')"><i class="fa-solid fa-shirt"></i></a>
@@ -59,6 +59,9 @@ export default {
     checkRegistration() {
       if (!this.isRegistred) {
         this.$router.push('/login');
+      }
+      else{
+        this.toggleMenu()
       }
     },
 
