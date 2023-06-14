@@ -72,11 +72,13 @@ export default {
                 },
             })
             .then(response => response.text())
-            console.log(response)
-              this.$store.commit('setLogged', true);
-              this.$store.commit('setUser', "notLogged");
-              this.$store.commit('setToken', response);
-              console.log(this.$store.state.token)
+            .then(response => {
+        console.log(response);
+        this.$store.commit('setLogged', true);
+        this.$store.commit('setUser', "notLogged");
+        this.$store.commit('setToken', response);
+        console.log(this.$store.state.token);
+    })
         },
     navigateToProduct(productId) {
       this.$router.push(`/product/${productId}`); // Redirige a la página de un producto específico
