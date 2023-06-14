@@ -64,6 +64,7 @@ export default {
 
 
     isRegistered(){
+      console.log(this.$store.state.user)
       if(!this.$store.state.user == "notLogged" || this.$store.state.user == ""){
         this.isRegistred = true
       }
