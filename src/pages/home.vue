@@ -1,13 +1,13 @@
 <template>
     <div class="main">
         <div class="first">
-            <div class="img-container" @click="navigateToProducts(false)">
+            <div class="img-container" @click="navigateToProducts('false')">
             <img src="../img/young.png">
             <span class="img-text">Temporada Actual</span>
                     </div>
         </div>
         <div class="second">
-            <div class="img-container" @click="navigateToProducts(true)">
+            <div class="img-container" @click="navigateToProducts('true')">
                 <img src="../img/Liverpool.png">
                 <span class="img-text">Retro</span>
             </div>

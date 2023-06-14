@@ -164,7 +164,7 @@ export default {
     getRetro(){
       const retro = this.$route.query.retro;
       console.log(retro)
-      if(retro == true || retro == false){
+      if(retro === 'true' || retro === 'false'){
       this.selectedRetro = retro;
       }
     },
