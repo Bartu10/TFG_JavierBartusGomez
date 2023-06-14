@@ -1,7 +1,7 @@
 <template>
   <ul>
     <li>
-      <a @click="toggleMenu"><i class="fas fa-user"></i></a>
+      <a @click="toggleMenu"><i class="fas fa-user" @click="checkRegistration"></i></a>
     </li>
     <li>
       <a @click="$router.push('/products')"><i class="fa-solid fa-shirt"></i></a>
@@ -44,9 +44,30 @@ export default {
     return {
       cartLength : 0,
       isMenuOpen: false,
+      isRegistred: false,
     };
   },
+
+
+  mounted(){
+    this.isRegistered()
+  },
+
   methods: {
+
+
+    checkRegistration() {
+      if (!this.isRegistred) {
+        this.$router.push('/login');
+      }
+    },
+
+
+    isRegistered(){
+      if(!this.$store.state.user == "notLogged" || this.$store.state.user == ""){
+        this.isRegistred = true
+      }
+    },
 
     closeSession(){
         this.toggleMenu()
