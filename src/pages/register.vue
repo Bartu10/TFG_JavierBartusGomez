@@ -67,6 +67,8 @@ export default {
         username: this.username,        // Asigna el valor del nombre de usuario a la propiedad 'username' del objeto 'user'
         email: this.email,              // Asigna el valor del correo electrónico a la propiedad 'email' del objeto 'user'
         password: this.password,        // Asigna el valor de la contraseña a la propiedad 'password' del objeto 'user'
+        admin: false,
+        imageid: "648a35a68830aa70c4dceef5"        
       };
 
       const token = this.$store.state.token;    // Obtiene el token de autenticación del estado de la aplicación
