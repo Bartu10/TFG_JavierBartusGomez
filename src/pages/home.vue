@@ -63,22 +63,19 @@ export default {
   methods: {
         async login() {
             // Objeto con los datos del usuario para iniciar sesión
-            const user = {
-                email: "notLogged@gmail.com",
-                password: "notLogged",
-            };
             // Realizar solicitud para obtener el token de autenticación
             await fetch("https://proyectspring-production.up.railway.app/token", {
                 method: "POST",
                 headers: {
-                    "Authorization": 'Basic ' + window.btoa("notLogged@gmail.com" + ':' + "notLogged"),
+                    "Authorization": 'Basic ' + window.btoa("javi@gmail.com" + ':' + "123"),
                     "Content-Type": "application/json",
                 },
             })
             .then(response => response.text())
+            console.log(response)
               this.$store.commit('setLogged', true);
               this.$store.commit('setUser', "notLogged");
-              this.$store.commit('setToken', token);
+              this.$store.commit('setToken', response);
               console.log(this.$store.state.token)
         },
     navigateToProduct(productId) {
