@@ -1,18 +1,13 @@
 <template>
     <div class="main">
         <div class="first">
-            <div class="img-container" @click="this.$router.push({
-              path: '/products',
-              query: { retro: false }
-            })">
+            <div class="img-container" @click="navigateToProducts('false')">
             <img src="../img/young.png">
             <span class="img-text">Temporada Actual</span>
                     </div>
         </div>
         <div class="second">
-            <div class="img-container" @click="this.$router.push({
-              path: '/products', query: { retro: true } 
-            })">
+            <div class="img-container" @click="navigateToProducts('true')">
                 <img src="../img/Liverpool.png">
                 <span class="img-text">Retro</span>
             </div>
@@ -80,9 +75,12 @@ export default {
         console.log(this.$store.state.token);
     })
         },
-    navigateToProduct(productId) {
-      this.$router.push(`/product/${productId}`); // Redirige a la página de un producto específico
-    },
+        navigateToProducts(retro) {
+  this.$router.push({
+    path: '/products',
+    query: { retro: retro }
+  });
+},
 
     async getProducts() {
       const token = this.$store.state.token

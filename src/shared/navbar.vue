@@ -75,8 +75,8 @@ export default {
 
     closeSession(){
         this.toggleMenu()
-        this.$store.commit('setLogged', false)
-        this.$store.commit('setUser', '')
+        this.$store.commit('setLogged', true)
+        this.$store.commit('setUser', 'notLogged')
         this.$router.push('/login')
     },
 

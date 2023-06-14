@@ -94,6 +94,7 @@ export default {
   },
 
   created() {
+    this.getRetro();
     this.callProducts();
   },
 
@@ -159,6 +160,13 @@ export default {
 },
 
   methods: {
+
+    getRetro(){
+      const retro = this.$route.query.retro;
+      this.selectedRetro = retro;
+    },
+
+
     sortYears() {
       // Ordena los años en orden ascendente
       this.years.sort((a, b) => a - b);
