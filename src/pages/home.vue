@@ -52,13 +52,12 @@ export default {
     }
   },
   created(){
-    this.$store.commit('setLogged', true);
     this.login()
     this.getProducts() // Llama al método para obtener los productos al crear el componente
   },
   methods: {
         async login() {
-          console.log("thisstorelogged",this.$store.state.logged)
+          console.log("this",this.$store.state.logged)
           if(this.$store.state.logged == null || this.$store.state.logged == false || this.$store.state.logged == undefined || this.$store.state.logged == ""){
             // Objeto con los datos del usuario para iniciar sesión
             // Realizar solicitud para obtener el token de autenticación
