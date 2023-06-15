@@ -87,10 +87,7 @@ export default {
 
 
     checkLog(){
-      console.log("ESTADOOODODODODDODesfesfesfesf",this.$store.state.user)
       let user = this.$store.state.user;
-      console.log("useeeer", user)
-      console.log(user == "notLogged")
       if (user != "notLogged") {
       this.addToCart();
       }
