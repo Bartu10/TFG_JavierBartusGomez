@@ -56,6 +56,13 @@ export default {
     this.getProducts() // Llama al método para obtener los productos al crear el componente
   },
   methods: {
+
+
+    navigateToProduct(productId) {
+      // Navega a la página de un producto específico
+      this.$router.push(`/product/${productId}`);
+    },
+
         async login() {
           console.log("this",this.$store.state.logged)
             // Objeto con los datos del usuario para iniciar sesión
