@@ -48,28 +48,13 @@ export default {
     };
   },
 
-
-  mounted(){
-    this.Registered()
-  },
-
   methods: {
-
-
     checkRegistration() {
-      if (!this.isRegistred) {
+      if (this.$store.state.user == "notLogged") {
         this.$router.push('/login');
       }
       else{
         this.toggleMenu()
-      }
-    },
-
-
-    Registered(){
-      console.log(this.$store.state.user)
-      if(!this.$store.state.user == "notLogged" || this.$store.state.user == ""){
-        this.isRegistred = true
       }
     },
 
