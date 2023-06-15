@@ -8,31 +8,31 @@
         <div class="form-group">
           <label for="name">Nombre:</label>
           <br>
-          <input id="name" type="text" v-model="name">
+          <input id="name" type="text" v-model="name" required>
         </div>
         <!-- Campo de entrada para el nombre de usuario -->
         <div class="form-group">
           <label for="username">Nick:</label>
           <br>
-          <input id="username" type="text" v-model="username">
+          <input id="username" type="text" v-model="username" required>
         </div>
         <!-- Campo de entrada para el correo electrónico -->
         <div class="form-group">
           <label for="email">Email:</label>
           <br>
-          <input id="email" type="text" v-model="email">
+          <input id="email" type="text" v-model="email" required>
         </div>
         <!-- Campo de entrada para la contraseña -->
         <div class="form-group">
           <label for="password">Contraseña:</label>
           <br>
-          <input id="password" type="password" v-model="password">
+          <input id="password" type="password" v-model="password" required>
         </div>
         <!-- Campo de entrada para repetir la contraseña -->
         <div class="form-group">
           <label for="password2">Repite tu contraseña:</label>
           <br>
-          <input id="password2" type="password" v-model="password2">
+          <input id="password2" type="password" v-model="password2" required>
         </div>
         <!-- Botón para registrar -->
         <button class="btn" type="submit">Registrate</button>
@@ -53,15 +53,34 @@ export default {
       email: '',              // Variable para almacenar el correo electrónico del usuario
       password: '',           // Variable para almacenar la contraseña del usuario
       password2: '',          // Variable para almacenar la confirmación de contraseña del usuario
+      msg: '',                // Variable para almacenar el mensaje de error
     }
   },
 
   methods: {
     async register() {
+      const emailRegex = /^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/;
+      const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/;
+      // Expresión regular para validar el nombre de usuario
+      const usernameRegex = /^[a-zA-Z0-9_-]{3,16}$/;
       if (this.password != this.password2) {
-        console.log("Las contraseñas no coinciden");    // Mensaje de consola si las contraseñas no coinciden
+        this.msg = "Las contraseñas no coinciden";    // Mensaje de consola si las contraseñas no coinciden
         return;
       }
+      if (!emailRegex.test(this.email)) {
+      this.msg = "El correo electrónico no es válido";
+    return;
+  }
+
+  if (!passwordRegex.test(this.password)) {
+    this.msg = "La contraseña debe tener al menos 8 caracteres y contener al menos una letra mayúscula, una letra minúscula y un número";
+    return;
+  }
+
+  if (!usernameRegex.test(this.username)) {
+    this.msg = "El nombre de usuario debe tener entre 3 y 16 caracteres y puede contener letras, números, guiones y guiones bajos";
+    return;
+  }
       const user = {
         name: this.name,                // Asigna el valor del nombre a la propiedad 'name' del objeto 'user'
         username: this.username,        // Asigna el valor del nombre de usuario a la propiedad 'username' del objeto 'user'
