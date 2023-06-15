@@ -109,6 +109,7 @@ export default {
     width: 40%;
 
     img {
+      width: 100%;
       max-width: 100%;
       border-radius: 8px;
     }
