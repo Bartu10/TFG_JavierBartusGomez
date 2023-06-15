@@ -33,7 +33,7 @@
         </select>
       </div>
       <!-- Botón para añadir al carrito -->
-      <button class="add-to-cart" @click="addToCart">Añadir al carrito</button>
+      <button class="add-to-cart" @click="checkLog">Añadir al carrito</button>
     </div>
   </div>
 </template>
@@ -48,6 +48,21 @@ export default {
   },
 
   methods: {
+
+    checkLog(){
+      console.log("ESTADOOODODODODDODesfesfesfesf",this.$store.state.user)
+      if (!this.$store.state.user == "notLogged") {
+      this.addToCart();
+      }
+      else{
+        this.$router.push('/login');
+      }
+
+      },
+
+
+
+
     // Función para obtener los detalles del producto desde el servidor
     async callProduct() {
       const token = this.$store.state.token;
