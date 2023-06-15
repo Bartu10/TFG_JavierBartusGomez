@@ -54,8 +54,7 @@ export default {
     checkCart(){
       console.log("ESTADOOODODODODDOD",this.$store.state.user)
       this.$router.push('/cart');
-      }
-    },
+      },
 
 
     checkRegistration() {
