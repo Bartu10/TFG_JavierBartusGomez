@@ -143,6 +143,7 @@ export default {
   display: flex;
   align-items: center;
   padding-right: 12vw;
+  flex-direction: row;
 }
 
 /* Estilos para el contenedor de pagos */
