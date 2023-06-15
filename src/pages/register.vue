@@ -36,6 +36,7 @@
         </div>
         <!-- Botón para registrar -->
         <button class="btn" type="submit">Registrate</button>
+        <p>{{ this.msg }}</p>
         <!-- Enlace para iniciar sesión -->
         <a @click="this.$router.push('/login')">Inicia sesion aquí</a>
       </form>
