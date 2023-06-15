@@ -52,8 +52,10 @@ export default {
     }
   },
   created(){
-    this.login()
-    this.getProducts() // Llama al método para obtener los productos al crear el componente
+    this.login() // Llama al método para obtener los productos al crear el componente
+  },
+  mounted() {
+    this.getProducts() // Llama al método para obtener los productos al montar el componente
   },
   methods: {
 

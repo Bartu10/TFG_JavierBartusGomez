@@ -24,20 +24,5 @@ pTkT5/oU
 comprador@classicshirt.com
 FM9&fsP]
 
-
-
-Ideas: 
-Ruleta de Descuentos diario, si te toca que se guarden 5 dias
-Verificacion por SMS/Correo
-Comentarios
-<<<<<<< HEAD
-Personalizacion y ofertas segun tu club favorito
-=======
-Guardar Club Favorito y que el diseño de la web cambie segun este
->>>>>>> f7586919127883bbc3a34893b3e5c516c416d525
-
-
-
-
-
-Relative y luego sticky
+Enlace del proyecto:
+https://timeless11.netlify.app
