@@ -7,19 +7,7 @@ export default createStore({
     user: '',
     token:''
   },
-  plugins: [createPersistedState({
-    // Configura una función para reemplazar el estado almacenado
-    setState: (key, state, storage) => {
-      // Aquí puedes decidir qué datos quieres sobrescribir
-      const newState = {
-        logged: state.logged,
-        user: state.user,
-        token: state.token
-      };
-
-      storage.setItem(key, JSON.stringify(newState));
-    }
-  })],
+  plugins: [createPersistedState()],
   getters: {
     getLogged(state){
       return state.logged
@@ -36,19 +24,23 @@ export default createStore({
 
   },
   mutations: {
-    setLogged(state, value){
-      state.logged = value
+    setLogged(state, value) {
+      state.logged = value;
+      // Sobrescribe el estado en el almacenamiento persistente
+      this.$store.replaceState(this.state);
     },
 
-    setUser(state, value){
-      state.user = value
+    setUser(state, value) {
+      state.user = value;
+      // Sobrescribe el estado en el almacenamiento persistente
+      this.$store.replaceState(this.state);
     },
 
-    setToken(state, value){
-      state.token = value
+    setToken(state, value) {
+      state.token = value;
+      // Sobrescribe el estado en el almacenamiento persistente
+      this.$store.replaceState(this.state);
     }
-
-  
   },
   actions: {
   },
