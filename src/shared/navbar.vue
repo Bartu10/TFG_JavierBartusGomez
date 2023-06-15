@@ -7,7 +7,7 @@
       <a @click="$router.push('/products')"><i class="fa-solid fa-shirt"></i></a>
     </li>
     <li>
-      <a @click="$router.push('/cart')"><i class="fa-solid fa-cart-shopping">{{ this.cartLength }}</i></a>
+      <a @click="checkCart"><i class="fa-solid fa-cart-shopping">{{ this.cartLength }}</i></a>
     </li>
     <li>
       <a @click="$router.push('/')"><i class="fa fa-home" aria-hidden="true"></i></a>
@@ -49,7 +49,20 @@ export default {
   },
 
   methods: {
+
+
+    checkCart(){
+      if (this.$store.state.user == "notLogged"){
+      this.$router.push('/login')
+      }
+      else{
+        this.$router.push('/cart')
+      }
+    },
+
+
     checkRegistration() {
+      console.log("ESTADOOODODODODDOD",this.$store.state.user)
       if (this.$store.state.user == "notLogged") {
         this.$router.push('/login');
       }
