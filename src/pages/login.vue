@@ -19,7 +19,7 @@
               </div>
               <!-- Botón para iniciar sesión -->
               <button class="btn" type="submit">Iniciar sesión</button>
-              <p>{{ this.msg }}</p>
+              <p class="msg">{{ this.msg }}</p>
               <!-- Enlace para registrarse -->
               <a @click="this.$router.push('/register')">Registrate aquí</a>
           </form>
@@ -97,6 +97,10 @@ body{
 
 *{
     font-family: 'WorkSans'; // Establece la fuente para todos los elementos del documento
+}
+
+.msg{                      // Establece el color de la fuente en rojo
+  text-align: center;     // Establece el texto alineado al centro
 }
 
 .titleR{

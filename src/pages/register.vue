@@ -36,7 +36,7 @@
         </div>
         <!-- Botón para registrar -->
         <button class="btn" type="submit">Registrate</button>
-        <p>{{ this.msg }}</p>
+        <p class="msg">{{ this.msg }}</p>
         <!-- Enlace para iniciar sesión -->
         <a @click="this.$router.push('/login')">Inicia sesion aquí</a>
       </form>
@@ -111,6 +111,10 @@ export default {
 </script>
 <style lang="scss" scoped>
 @import '../scss/global.scss';     // Importa el archivo de estilos global
+
+.msg{                      // Establece el color de la fuente en rojo
+  text-align: center;     // Establece el texto alineado al centro
+}
 
 *{
   font-family: 'WorkSans';     // Aplica la fuente 'WorkSans' a todos los elementos
