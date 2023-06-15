@@ -83,7 +83,7 @@ export default {
         console.log(this.isRegistred)
         this.isRegistred = true
       }
-      checkRegistration()
+      this.checkRegistration()
     },
     clearCart() {
       // Limpiar el carrito eliminando el elemento "cart" del almacenamiento local
