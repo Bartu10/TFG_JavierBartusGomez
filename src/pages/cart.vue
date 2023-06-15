@@ -36,9 +36,6 @@ export default {
     }
   },
 
-  mounted(){
-    this.isRegistered()
-  },
 
   methods: {
     async callOrder() {
@@ -66,25 +63,7 @@ export default {
         console.error(error);
       }
     },
-    checkRegistration() {
-      console.log("reg",this.isRegistred)
-      if (this.isRegistred == false) {
-        this.$router.push('/login');
-      }
-      else{
-        this.callOrder()
-      }
-    },
 
-
-    isRegistered(){
-      console.log(this.$store.state.user)
-      if(!this.$store.state.user == "notLogged" || this.$store.state.user == ""){
-        console.log(this.isRegistred)
-        this.isRegistred = true
-      }
-      this.checkRegistration()
-    },
     clearCart() {
       // Limpiar el carrito eliminando el elemento "cart" del almacenamiento local
       localStorage.removeItem("cart");

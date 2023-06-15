@@ -52,12 +52,12 @@ export default {
 
 
     checkCart(){
-      console.log("ESTADOOODODODODDOin",this.$store.state.user)
-      if (!this.$store.state.user == "notLogged"){
-        this.$router.push('/cart')
+      console.log("ESTADOOODODODODDOD",this.$store.state.user)
+      if (this.$store.state.user == "notLogged") {
+        this.$router.push('/login');
       }
       else{
-        this.$router.push('/login')
+        this.$router.push('/cart');
       }
     },
 
