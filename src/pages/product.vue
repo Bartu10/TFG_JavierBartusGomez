@@ -90,10 +90,11 @@ export default {
       console.log("ESTADOOODODODODDODesfesfesfesf",this.$store.state.user)
       let user = this.$store.state.user;
       console.log("useeeer", user)
-      if (!user == "notLogged") {
+      console.log("useeeerrrrrr", user == "notLogged")
+      if (user !== "notLogged") {
       this.addToCart();
       }
-      else{
+      else if(user == "notLogged"){
         this.$router.push('/login');
       }
 
