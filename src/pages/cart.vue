@@ -6,7 +6,12 @@
       <div>
         <h3>{{ fav.name }}</h3>
         <p>Precio: {{ fav.price }}</p>
-        <p>Cantidad: <button class="btn" @click="Decrease(index, 1)">-</button>{{fav.quantity}}<button class="btn" @click="Increase(index, 1)">+</button></p>
+        <div class="quantity">
+        <p>Cantidad:</p> 
+        <button class="btn" @click="Decrease(index, 1)">-</button>
+        {{fav.quantity}}
+        <button class="btn" @click="Increase(index, 1)">+</button>
+        </div>
         <p>Talla: {{fav.talla}}</p>
         <a @click="deleteProductCart(index)"><i class="fa-solid fa-xmark"></i></a>
       </div>
@@ -134,6 +139,12 @@ export default {
   cursor: pointer;
 }
 
+.quantity {
+  display: flex;
+  align-items: center;
+  padding-right: 12vw;
+}
+
 /* Estilos para el contenedor de pagos */
 .payment {
   display: flex;
@@ -156,10 +167,6 @@ export default {
     background-color: #4CA686; /* Color de fondo del botón al pasar el cursor */
     cursor: pointer;
   }
-}
-
-.quantity {
-  flex: none;
 }
 
 /* Estilos para el título h3 */
