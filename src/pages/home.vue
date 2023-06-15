@@ -57,6 +57,7 @@ export default {
   },
   methods: {
         async login() {
+          if(this.$store.state.logged == false){
             // Objeto con los datos del usuario para iniciar sesión
             // Realizar solicitud para obtener el token de autenticación
             await fetch("https://proyectspring-production.up.railway.app/token", {
@@ -74,6 +75,7 @@ export default {
         this.$store.commit('setToken', response);
         console.log(this.$store.state.token);
     })
+  }
         },
         navigateToProducts(retro) {
   this.$router.push({

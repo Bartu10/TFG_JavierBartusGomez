@@ -39,23 +39,6 @@ export default createStore({
   
   },
   actions: {
-    updateLoggedState({ commit }, payload) {
-      commit('setLogged', payload);
-      this.$router.push('/');
-      commit('overwriteState');
-    },
-
-    updateUserState({ commit }, payload) {
-      commit('setUser', payload);
-      this.$router.push('/');
-      commit('overwriteState');
-    },
-
-    updateTokenState({ commit }, payload) {
-      commit('setToken', payload);
-      this.$router.push('/');
-      commit('overwriteState');
-    }
   },
   modules: {
   }
