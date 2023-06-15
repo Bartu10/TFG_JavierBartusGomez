@@ -52,7 +52,7 @@ export default {
 
 
     checkCart(){
-      console.log("ESTADOOODODODODDOD",this.$store.state.user)
+      console.log("ESTADOOODODODODDODesfesfesfesf",this.$store.state.user)
       if (this.$store.state.user == "notLogged") {
       this.$router.push('/cart');
       }
