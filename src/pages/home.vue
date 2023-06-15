@@ -52,12 +52,14 @@ export default {
     }
   },
   created(){
+    this.$store.commit('setLogged', true);
     this.login()
     this.getProducts() // Llama al método para obtener los productos al crear el componente
   },
   methods: {
         async login() {
-          if(this.$store.state.logged == false){
+          console.log("thisstorelogged",this.$store.state.logged)
+          if(this.$store.state.logged == null || this.$store.state.logged == false || this.$store.state.logged == undefined || this.$store.state.logged == ""){
             // Objeto con los datos del usuario para iniciar sesión
             // Realizar solicitud para obtener el token de autenticación
             await fetch("https://proyectspring-production.up.railway.app/token", {
