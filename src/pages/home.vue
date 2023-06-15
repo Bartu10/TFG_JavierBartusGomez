@@ -58,7 +58,6 @@ export default {
   methods: {
         async login() {
           console.log("this",this.$store.state.logged)
-          if(this.$store.state.logged == null || this.$store.state.logged == false || this.$store.state.logged == undefined || this.$store.state.logged == ""){
             // Objeto con los datos del usuario para iniciar sesión
             // Realizar solicitud para obtener el token de autenticación
             await fetch("https://proyectspring-production.up.railway.app/token", {
@@ -70,14 +69,16 @@ export default {
             })
             .then(response => response.text())
             .then(response => {
+              
         console.log(response);
+        if(this.$store.state.logged == null || this.$store.state.logged == false || this.$store.state.logged == undefined || this.$store.state.logged == ""){
         this.$store.commit('setLogged', true);
         this.$store.commit('setUser', "notLogged");
+        }
         this.$store.commit('setToken', response);
         console.log(this.$store.state.token);
     })
-  }
-        },
+  },
         navigateToProducts(retro) {
   this.$router.push({
     path: '/products',
