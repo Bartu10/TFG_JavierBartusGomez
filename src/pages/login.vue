@@ -64,10 +64,9 @@ export default {
                     console.log(data.status);
                     if(data.status == 200){
                         // Establecer el estado de inicio de sesión en el almacenamiento
-                        this.$store.commit('setLogged', true);
-                        this.$store.commit('setUser', user.email);
-                        this.$store.commit('setToken', token);
-                        this.$router.push('/');
+                        this.$store.dispatch('updateLoggedState', true);
+                        this.$store.dispatch('updateUserState', user.email);
+                        this.$store.dispatch('updateTokenState', token);
                     }
                 });
             });

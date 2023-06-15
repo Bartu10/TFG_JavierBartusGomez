@@ -24,25 +24,38 @@ export default createStore({
 
   },
   mutations: {
-    setLogged(state, value) {
-      state.logged = value;
-      // Sobrescribe el estado en el almacenamiento persistente
-      this.$store.replaceState(this.state);
+    setLogged(state, value){
+      state.logged = value
     },
 
-    setUser(state, value) {
-      state.user = value;
-      // Sobrescribe el estado en el almacenamiento persistente
-      this.$store.replaceState(this.state);
+    setUser(state, value){
+      state.user = value
     },
 
-    setToken(state, value) {
-      state.token = value;
-      // Sobrescribe el estado en el almacenamiento persistente
-      this.$store.replaceState(this.state);
+    setToken(state, value){
+      state.token = value
     }
+
+  
   },
   actions: {
+    updateLoggedState({ commit }, payload) {
+      commit('setLogged', payload);
+      this.$router.push('/');
+      commit('overwriteState');
+    },
+
+    updateUserState({ commit }, payload) {
+      commit('setUser', payload);
+      this.$router.push('/');
+      commit('overwriteState');
+    },
+
+    updateTokenState({ commit }, payload) {
+      commit('setToken', payload);
+      this.$router.push('/');
+      commit('overwriteState');
+    }
   },
   modules: {
   }
