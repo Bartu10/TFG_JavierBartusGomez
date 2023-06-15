@@ -111,6 +111,7 @@ body{
   justify-content: center;
   align-items: center;
   height: 60vh;
+  margin-top: 100px;
 
   form {
     width: 35%;

@@ -19,6 +19,7 @@
               </div>
               <!-- Botón para iniciar sesión -->
               <button class="btn" type="submit">Iniciar sesión</button>
+              <p>{{ this.msg }}</p>
               <!-- Enlace para registrarse -->
               <a @click="this.$router.push('/register')">Registrate aquí</a>
           </form>
@@ -29,6 +30,7 @@
 export default {
     data() {
         return {
+            msg:'',
             email: '',
             password: '',
         };
@@ -68,6 +70,10 @@ export default {
                         this.$store.commit('setUser', user.email);
                         this.$store.commit('setToken', token);
                         this.$router.push('/');
+                        this.msg = '';
+                    }
+                    if(data.status == 401){
+                        this.msg = "Usuario o contraseña incorrectos";
                     }
                 });
             });

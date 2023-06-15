@@ -77,6 +77,8 @@ export default {
         this.toggleMenu()
         this.$store.commit('setLogged', true)
         this.$store.commit('setUser', 'notLogged')
+        localStorage.removeItem("cart"); // Limpiar el carrito eliminando el elemento "cart" del almacenamiento local
+        location.reload(); // Recargar la página para reflejar los cambios
         this.$router.push('/login')
     },
 
