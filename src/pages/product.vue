@@ -84,14 +84,9 @@ export default {
       localStorage.setItem('cart', JSON.stringify(cart));
       location.reload(); // Recarga la página para reflejar los cambios en el carrito
     },
-  },
-
-  created() {
-    this.callProduct(); // Llama a la función para obtener los detalles del producto al cargar la página
-  },
 
 
-  checkLog(){
+    checkLog(){
       console.log("ESTADOOODODODODDODesfesfesfesf",this.$store.state.user)
       let user = this.$store.state.user;
       console.log("useeeer", user)
@@ -102,7 +97,16 @@ export default {
         this.$router.push('/login');
       }
 
-      },
+      }
+
+  },
+
+  created() {
+    this.callProduct(); // Llama a la función para obtener los detalles del producto al cargar la página
+  },
+
+
+
 
 }
 </script>
