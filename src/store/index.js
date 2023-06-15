@@ -7,7 +7,19 @@ export default createStore({
     user: '',
     token:''
   },
-  plugins: [createPersistedState()],
+  plugins: [createPersistedState({
+    // Configura una función para reemplazar el estado almacenado
+    setState: (key, state, storage) => {
+      // Aquí puedes decidir qué datos quieres sobrescribir
+      const newState = {
+        logged: state.logged,
+        user: state.user,
+        token: state.token
+      };
+
+      storage.setItem(key, JSON.stringify(newState));
+    }
+  })],
   getters: {
     getLogged(state){
       return state.logged
