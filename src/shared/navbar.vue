@@ -50,7 +50,7 @@ export default {
 
 
   mounted(){
-    this.isRegistered()
+    this.Registered()
   },
 
   methods: {
@@ -66,7 +66,7 @@ export default {
     },
 
 
-    isRegistered(){
+    Registered(){
       console.log(this.$store.state.user)
       if(!this.$store.state.user == "notLogged" || this.$store.state.user == ""){
         this.isRegistred = true
