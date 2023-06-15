@@ -302,24 +302,33 @@ export default {
         console.error(error);
       }
     },
-
     async applyStateFilter() {
-      // Aplica el filtro por estado seleccionado
-      const token = this.$store.state.token;
-      try {
-        const response = await axios.get(
-          `https://proyectspring-production.up.railway.app/products/state/${this.selectedState}`,
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
-        this.products = response.data;
-      } catch (error) {
-        console.error(error);
-      }
-    },
+  // Aplica el filtro por estado seleccionado
+  const token = this.$store.state.token;
+  try {
+    let response;
+    if (this.selectedState === "") {
+      // Si el estado seleccionado es "Todos", obtén todos los productos
+      response = await axios.get("https://proyectspring-production.up.railway.app/products/", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+    } else {
+      response = await axios.get(
+        `https://proyectspring-production.up.railway.app/products/state/${this.selectedState}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+    }
+    this.products = response.data;
+  } catch (error) {
+    console.error(error);
+  }
+},
   },
 };
 </script>

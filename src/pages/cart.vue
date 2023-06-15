@@ -169,7 +169,7 @@ h3 {
 
 /* Estilos para el párrafo p */
 p {
-  margin-right: 12vw;
+  padding-right: 12vw;
 }
 
 .p-titles {
