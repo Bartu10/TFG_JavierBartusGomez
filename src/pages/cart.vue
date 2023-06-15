@@ -6,7 +6,7 @@
       <div>
         <h3>{{ fav.name }}</h3>
         <p>Precio: {{ fav.price }}</p>
-        <div class="quantity">
+        <div id="quantity">
         <p>Cantidad:</p> 
         <button class="btn" @click="Decrease(index, 1)">-</button>
         {{fav.quantity}}
@@ -139,7 +139,7 @@ export default {
   cursor: pointer;
 }
 
-.quantity {
+#quantity {
   display: flex;
   align-items: center;
   padding-right: 12vw;
