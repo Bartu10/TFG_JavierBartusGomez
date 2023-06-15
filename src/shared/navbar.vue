@@ -52,8 +52,8 @@ export default {
 
 
     checkCart(){
-      console.log("ESTADOOODODODODDOD",this.$store.state.user)
-      if (this.$store.state.user == "notLogged"){
+      console.log("ESTADOOODODODODDOin",this.$store.state.user)
+      if (!this.$store.state.user == "notLogged"){
       this.$router.push('/login')
       }
       else{
