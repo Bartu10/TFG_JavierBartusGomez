@@ -67,7 +67,8 @@ export default {
       }
     },
     checkRegistration() {
-      if (!this.isRegistred) {
+      console.log("reg",this.isRegistred)
+      if (this.isRegistred == false) {
         this.$router.push('/login');
       }
       else{
