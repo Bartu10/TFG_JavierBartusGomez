@@ -48,21 +48,6 @@ export default {
   },
 
   methods: {
-
-    checkLog(){
-      console.log("ESTADOOODODODODDODesfesfesfesf",this.$store.state.user)
-      if (!this.$store.state.user == "notLogged") {
-      this.addToCart();
-      }
-      else{
-        this.$router.push('/login');
-      }
-
-      },
-
-
-
-
     // Función para obtener los detalles del producto desde el servidor
     async callProduct() {
       const token = this.$store.state.token;
@@ -103,7 +88,20 @@ export default {
 
   created() {
     this.callProduct(); // Llama a la función para obtener los detalles del producto al cargar la página
-  }
+  },
+
+
+  checkLog(){
+      console.log("ESTADOOODODODODDODesfesfesfesf",this.$store.state.user)
+      if (!this.$store.state.user == "notLogged") {
+      this.addToCart();
+      }
+      else{
+        this.$router.push('/login');
+      }
+
+      },
+
 }
 </script>
 <style lang="scss" scoped>
