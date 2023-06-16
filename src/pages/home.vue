@@ -3,7 +3,7 @@
         <div class="first">
             <div class="img-container" @click="navigateToProducts('false')">
             <img src="../img/young.png">
-            <span class="img-text">Temporada Actual</span>
+            <span class="img-text">Últimas temporadas</span>
                     </div>
         </div>
         <div class="second">
