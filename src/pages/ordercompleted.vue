@@ -28,7 +28,7 @@ export default {
     methods: {
         async GetLastOrder() {
             const token = this.$store.state.token; // Obtiene el token del estado de la tienda
-            const response = await fetch(`https://proyectspring-production.up.railway.app/users/mail/${this.$store.state.user}/`, { // Realiza una solicitud HTTP para obtener los detalles del pedido
+            const response = await fetch(`https://springboottfg.onrender.com/users/mail/${this.$store.state.user}/`, { // Realiza una solicitud HTTP para obtener los detalles del pedido
                 method: 'GET',
                 headers: {
                     Authorization: `Bearer ${token}`, // Agrega el token de autenticación en los encabezados

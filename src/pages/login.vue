@@ -43,7 +43,7 @@ export default {
                 password: this.password,
             };
             // Realizar solicitud para obtener el token de autenticación
-            await fetch("https://proyectspring-production.up.railway.app/token", {
+            await fetch("https://springboottfg.onrender.com/token", {
                 method: "POST",
                 headers: {
                     "Authorization": 'Basic ' + window.btoa("javi@gmail.com" + ':' + "123"),
@@ -54,7 +54,7 @@ export default {
             .then(token => {
                 console.log(token);
                 // Realizar solicitud para iniciar sesión con el token y los datos del usuario
-                fetch("https://proyectspring-production.up.railway.app/users/login", {
+                fetch("https://springboottfg.onrender.com/users/login", {
                     method: "POST",
                     headers: {
                         "Content-Type": 'application/json',

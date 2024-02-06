@@ -203,7 +203,7 @@ export default {
   // Obtiene la lista de productos desde el servidor
   const token = this.$store.state.token;
   try {
-    const response = await axios.get("https://proyectspring-production.up.railway.app/products/", {
+    const response = await axios.get("https://springboottfg.onrender.com/products/", {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -237,14 +237,14 @@ export default {
       try {
         let response;
         if (this.selectedYear === "") {
-          response = await axios.get("https://proyectspring-production.up.railway.app/products/", {
+          response = await axios.get("https://springboottfg.onrender.com/products/", {
             headers: {
               Authorization: `Bearer ${token}`,
             },
           });
         } else {
           response = await axios.get(
-            `https://proyectspring-production.up.railway.app/products/year/${this.selectedYear}`,
+            `https://springboottfg.onrender.com/products/year/${this.selectedYear}`,
             {
               headers: {
                 Authorization: `Bearer ${token}`,
@@ -263,7 +263,7 @@ export default {
       const token = this.$store.state.token;
       try {
         const response = await axios.get(
-          `https://proyectspring-production.up.railway.app/products/retro/${this.retro}`,
+          `https://springboottfg.onrender.com/products/retro/${this.retro}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -282,14 +282,14 @@ export default {
       try {
         let response;
         if (this.selectedTeam === "") {
-          response = await axios.get("https://proyectspring-production.up.railway.app/products/", {
+          response = await axios.get("https://springboottfg.onrender.com/products/", {
             headers: {
               Authorization: `Bearer ${token}`,
             },
           });
         } else {
           response = await axios.get(
-            `https://proyectspring-production.up.railway.app/products/team/${this.selectedTeam}`,
+            `https://springboottfg.onrender.com/products/team/${this.selectedTeam}`,
             {
               headers: {
                 Authorization: `Bearer ${token}`,
@@ -309,14 +309,14 @@ export default {
     let response;
     if (this.selectedState === "") {
       // Si el estado seleccionado es "Todos", obtén todos los productos
-      response = await axios.get("https://proyectspring-production.up.railway.app/products/", {
+      response = await axios.get("https://springboottfg.onrender.com/products/", {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
     } else {
       response = await axios.get(
-        `https://proyectspring-production.up.railway.app/products/state/${this.selectedState}`,
+        `https://springboottfg.onrender.com/products/state/${this.selectedState}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,

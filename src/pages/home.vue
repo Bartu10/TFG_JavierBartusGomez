@@ -69,7 +69,7 @@ export default {
           console.log("this",this.$store.state.logged)
             // Objeto con los datos del usuario para iniciar sesión
             // Realizar solicitud para obtener el token de autenticación
-            await fetch("https://proyectspring-production.up.railway.app/token", {
+            await fetch("https://springboottfg.onrender.com/token", {
                 method: "POST",
                 headers: {
                     "Authorization": 'Basic ' + window.btoa("javi@gmail.com" + ':' + "123"),
@@ -97,7 +97,7 @@ export default {
 
     async getProducts() {
       const token = this.$store.state.token
-      const res = await fetch('https://proyectspring-production.up.railway.app/lowestSum', {
+      const res = await fetch('https://springboottfg.onrender.com/lowestSum', {
         headers: {
           'Authorization': `Bearer ${token}`
         }

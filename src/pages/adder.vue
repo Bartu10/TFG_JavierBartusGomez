@@ -88,7 +88,7 @@ export default {
             }
             const token = this.$store.state.token
             console.log(product)
-            const response = await fetch("https://proyectspring-production.up.railway.app/products/create", {
+            const response = await fetch("https://springboottfg.onrender.com/products/create", {
           method: "POST",
           headers: {
             Authorization: `Bearer ${token}`,
