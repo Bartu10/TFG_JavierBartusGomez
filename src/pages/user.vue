@@ -128,7 +128,6 @@ export default {
       }
       console.log("pasa")
       this.edit = false
-      const token = this.$store.state.token;
 
       const user = {
         name: this.user.name,
@@ -136,9 +135,10 @@ export default {
         username: this.user.username,
         password: this.user.password,
         admin: true,
+        imageid: this.$store.state.user.user.imageid,
       };
       console.log("user", user);
-      const editUser = await axios.put(`https://backendnodetfg.onrender.com/user/update/${this.$store.state.user}/`, user, {
+      const editUser = await axios.put(`https://backendnodetfg.onrender.com/users/${this.$store.state.user.user}/`, user, {
         headers: {
           "Content-Type": "application/json",
           
@@ -146,6 +146,7 @@ export default {
       });
       console.log("usuario a editar",user)
       console.log("editUser", editUser.data);
+      this.$store.commit('setUser', {"user" : editUser.data});
 
       this.edit = false;
     },
