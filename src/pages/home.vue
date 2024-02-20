@@ -32,7 +32,7 @@
           <div class="products">
           <div v-for="producto in this.products" :key="producto.nombre" class="cell" @click="navigateToProduct(producto.id)">
             <div class="product">
-      <img class="product-image" :src="producto.img" alt="Imagen del Producto">
+      <img class="product-image" :src="producto.imageUrl" alt="Imagen del Producto">
       <div class="product-info">
         <h3 class="product-name">{{ producto.name }}</h3>
         <p class="product-price">{{ producto.price }}€</p>
@@ -45,69 +45,39 @@
 </template>
 
 <script>
+import axios from 'axios';
+
 export default {
   data() {
     return {
       products: [], // Array vacío para almacenar los productos
     }
   },
-  created(){
-    this.login() // Llama al método para obtener los productos al crear el componente
-  },
-  mounted() {
-    this.getProducts() // Llama al método para obtener los productos al montar el componente
+  mounted: async function() {
+    await this.getProducts(); // Llama al método para obtener los productos al montar el componente
   },
   methods: {
-
-
     navigateToProduct(productId) {
       // Navega a la página de un producto específico
       this.$router.push(`/product/${productId}`);
     },
-
-        async login() {
-          console.log("this",this.$store.state.logged)
-            // Objeto con los datos del usuario para iniciar sesión
-            // Realizar solicitud para obtener el token de autenticación
-            await fetch("https://springboottfg.onrender.com/token", {
-                method: "POST",
-                headers: {
-                    "Authorization": 'Basic ' + window.btoa("javi@gmail.com" + ':' + "123"),
-                    "Content-Type": "application/json",
-                },
-            })
-            .then(response => response.text())
-            .then(response => {
-              
-        console.log(response);
-        if(this.$store.state.logged == null || this.$store.state.logged == false || this.$store.state.logged == undefined || this.$store.state.logged == ""){
-        this.$store.commit('setLogged', true);
-        this.$store.commit('setUser', "notLogged");
-        }
-        this.$store.commit('setToken', response);
-        console.log(this.$store.state.token);
-    })
-  },
-        navigateToProducts(retro) {
-  this.$router.push({
-    path: '/products',
-    query: { retro: retro }
-  });
-},
-
-    async getProducts() {
-      const token = this.$store.state.token
-      const res = await fetch('https://springboottfg.onrender.com/lowestSum', {
-        headers: {
-          'Authorization': `Bearer ${token}`
-        }
-      })
-      .then(res => res.json())
-      this.products = res // Asigna los productos obtenidos a la propiedad 'products'
-      console.log(this.products)
+    navigateToProducts(retro) {
+      this.$router.push({
+        path: '/products',
+        query: { retro: retro }
+      });
     },
+    async getProducts() {
+      try {
+        const response = await axios.get('http://localhost:3000/products/lowestSum/low');
+        this.products = response.data;
+        console.log(this.products);
+      } catch (error) {
+        console.error('Error al cargar productos:', error);
+      }
+    }
   },
-  }
+};
 </script>
 
 

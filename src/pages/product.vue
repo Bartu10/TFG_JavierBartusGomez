@@ -51,11 +51,11 @@ export default {
     // Función para obtener los detalles del producto desde el servidor
     async callProduct() {
       const token = this.$store.state.token;
-      const url = `https://springboottfg.onrender.com/products/${this.$route.params.id}/`;
+      const url = `http://localhost:3000/products/${this.$route.params.id}/`;
       const response = await fetch(url, {
         method: "GET",
         headers: {
-          Authorization: `Bearer ${token}`,
+          
         },
       }).then(response => response.json());
       this.productComplete = response; // Asigna los detalles del producto al objeto

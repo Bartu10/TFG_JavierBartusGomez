@@ -27,6 +27,7 @@
   </div>
 </template>
 <script>
+import axios from 'axios';
 export default {
     data() {
         return {
@@ -39,44 +40,23 @@ export default {
         async login() {
             // Objeto con los datos del usuario para iniciar sesión
             const user = {
-                email: this.email,
-                password: this.password,
+                "email": this.email,
+                "password": this.password,
             };
-            // Realizar solicitud para obtener el token de autenticación
-            await fetch("https://springboottfg.onrender.com/token", {
-                method: "POST",
-                headers: {
-                    "Authorization": 'Basic ' + window.btoa("javi@gmail.com" + ':' + "123"),
-                    "Content-Type": "application/json",
-                },
+        axios.post('http://localhost:3000/users/login', user)
+            .then(response => {
+                console.log(response);
+                if(response.data == "Usuario no encontrado"){
+                    this.msg = "Usuario no encontrado";
+                }else if(response.data == "Contraseña incorrecta"){
+                    this.msg = "Contraseña incorrecta";
+                }else{
+                    this.$store.commit('setLogged', true);
+                    this.$store.commit('setUser', response.data);
+                    this.$router.push('/home');
+                }
             })
-            .then(response => response.text())
-            .then(token => {
-                console.log(token);
-                // Realizar solicitud para iniciar sesión con el token y los datos del usuario
-                fetch("https://springboottfg.onrender.com/users/login", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": 'application/json',
-                        Authorization: `Bearer ${token}`,
-                    },
-                    body: JSON.stringify(user),
-                })
-                .then(data => {
-                    console.log(data.status);
-                    if(data.status == 200){
-                        // Establecer el estado de inicio de sesión en el almacenamiento
-                        this.$store.commit('setLogged', true);
-                        this.$store.commit('setUser', user.email);
-                        this.$store.commit('setToken', token);
-                        this.$router.push('/');
-                        this.msg = '';
-                    }
-                    if(data.status == 401){
-                        this.msg = "Usuario o contraseña incorrectos";
-                    }
-                });
-            });
+            // Realizar solicitud para obtener el token de autenticación
         },
 
         async closeSesion(){

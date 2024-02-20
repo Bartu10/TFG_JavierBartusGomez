@@ -92,11 +92,11 @@ export default {
       };
 
       const token = this.$store.state.token;    // Obtiene el token de autenticación del estado de la aplicación
-      const response = await fetch("https://springboottfg.onrender.com/users/create", {
+      const response = await fetch("http://localhost:3000/users/create", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,     // Agrega el token de autenticación en el encabezado de la solicitud
+               // Agrega el token de autenticación en el encabezado de la solicitud
         },
         body: JSON.stringify(user),     // Convierte el objeto 'user' a una cadena JSON y lo asigna al cuerpo de la solicitud
       });

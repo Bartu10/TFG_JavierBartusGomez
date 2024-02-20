@@ -108,12 +108,10 @@ export default {
     },
 
     async getImg() { //Obtengo la imagen del usuario
-      const token = this.$store.state.token;
       console.log("imageid", this.user.imageid);
-      const getImage = await axios.get(`https://springboottfg.onrender.com/images/${this.user.imageid}`, {
+      const getImage = await axios.get(`http://localhost:3000/images/${this.user.imageid}`, {
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`
         },
       });
 
@@ -138,10 +136,10 @@ export default {
         admin: true,
       };
       console.log("user", user);
-      const editUser = await axios.put(`https://springboottfg.onrender.com/user/update/${this.$store.state.user}/`, user, {
+      const editUser = await axios.put(`http://localhost:3000/user/update/${this.$store.state.user}/`, user, {
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
+          
         },
       });
       console.log("usuario a editar",user)
@@ -160,10 +158,10 @@ export default {
       formData.append('title', 'Profile Picture');
 
       // Hacer una solicitud POST al endpoint del servidor
-      await axios.post('https://springboottfg.onrender.com/images/add', formData, {
+      await axios.post('http://localhost:3000/images/add', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
-          Authorization: `Bearer ${token}`,
+          
         },
       })
         .then(async response => {
@@ -173,19 +171,18 @@ export default {
 
           console.log("imageid", imageid);
           // Hacer la solicitud PUT para actualizar la imagen del usuario
-          const editUI = await axios.put(`https://springboottfg.onrender.com/user/image/${this.$store.state.user}/`, { "imageid": imageid }, {
+          const editUI = await axios.put(`http://localhost:3000/user/image/${this.$store.state.user.user.ima}/`, { "imageid": imageid }, {
             headers: {
               "Content-Type": "application/json",
-              Authorization: `Bearer ${token}`,
+              
             },
           });
 
           console.log("editUI", editUI.data.imageid);
           // TODO: Aquí se debe cambiar la imagen del usuario
-          const getImage = await axios.get(`https://springboottfg.onrender.com/images/${editUI.data.imageid}`, {
+          const getImage = await axios.get(`http://localhost:3000/images/${editUI.data.imageid}`, {
             headers: {
               "Content-Type": "application/json",
-              Authorization: `Bearer ${token}`
             },
           });
 
@@ -204,18 +201,18 @@ export default {
       console.log("Introduced ", this.password);
 
       const user = {
-        email: this.$store.state.user,
+        email: this.$store.state.user.user.email,
         password: this.password,
       };
 
       console.log(user);
       const token = this.$store.state.token;
       console.log("prelogin");
-      await fetch("https://springboottfg.onrender.com/users/login", {
+      await fetch("http://localhost:3000/users/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
+          
         },
         body: JSON.stringify(user),
       })
@@ -256,20 +253,19 @@ export default {
     },
 
     async callUser() {
-      const token = this.$store.state.token;
       console.log("preGetUser");
-      const response = await fetch(`https://springboottfg.onrender.com/users/mail/${this.$store.state.user}/`, {
+      const response = await fetch(`http://localhost:3000/users/mail/${this.$store.state.user.user.email}`, {
         method: "GET",
         headers: {
-          Authorization: `Bearer ${token}`,
+          
         },
       })
         .then(response => response.json())
         .catch(error => {
           console.error(error);
         });
-      this.user = response;
-      console.log("userFunctions", this.user);
+      this.user = response.user;
+      console.log("userFunctions", this.user.user);
     },
   }
 };

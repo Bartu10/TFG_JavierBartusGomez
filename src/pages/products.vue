@@ -53,7 +53,7 @@
     <div class="grid">
       <div v-for="producto in paginatedProducts" :key="producto.nombre" class="cell" @click="navigateToProduct(producto.id)">
         <div class="product">
-          <img class="product-image" :src="producto.img" alt="Imagen del Producto">
+          <img class="product-image" :src="producto.imageUrl" alt="Imagen del Producto">
           <div class="product-info">
             <h3 class="product-name">{{ producto.name }}</h3>
             <p class="product-price">{{ producto.price }}€</p>
@@ -203,9 +203,9 @@ export default {
   // Obtiene la lista de productos desde el servidor
   const token = this.$store.state.token;
   try {
-    const response = await axios.get("https://springboottfg.onrender.com/products/", {
+    const response = await axios.get("http://localhost:3000/products/", {
       headers: {
-        Authorization: `Bearer ${token}`,
+        
       },
     });
 
@@ -237,17 +237,17 @@ export default {
       try {
         let response;
         if (this.selectedYear === "") {
-          response = await axios.get("https://springboottfg.onrender.com/products/", {
+          response = await axios.get("http://localhost:3000/products/", {
             headers: {
-              Authorization: `Bearer ${token}`,
+              
             },
           });
         } else {
           response = await axios.get(
-            `https://springboottfg.onrender.com/products/year/${this.selectedYear}`,
+            `http://localhost:3000/products/year/${this.selectedYear}`,
             {
               headers: {
-                Authorization: `Bearer ${token}`,
+                
               },
             }
           );
@@ -263,10 +263,10 @@ export default {
       const token = this.$store.state.token;
       try {
         const response = await axios.get(
-          `https://springboottfg.onrender.com/products/retro/${this.retro}`,
+          `http://localhost:3000/products/retro/${this.retro}`,
           {
             headers: {
-              Authorization: `Bearer ${token}`,
+              
             },
           }
         );
@@ -282,17 +282,17 @@ export default {
       try {
         let response;
         if (this.selectedTeam === "") {
-          response = await axios.get("https://springboottfg.onrender.com/products/", {
+          response = await axios.get("http://localhost:3000/products/", {
             headers: {
-              Authorization: `Bearer ${token}`,
+              
             },
           });
         } else {
           response = await axios.get(
-            `https://springboottfg.onrender.com/products/team/${this.selectedTeam}`,
+            `http://localhost:3000/products/team/${this.selectedTeam}`,
             {
               headers: {
-                Authorization: `Bearer ${token}`,
+                
               },
             }
           );
@@ -304,27 +304,25 @@ export default {
     },
     async applyStateFilter() {
   // Aplica el filtro por estado seleccionado
-  const token = this.$store.state.token;
   try {
     let response;
     if (this.selectedState === "") {
       // Si el estado seleccionado es "Todos", obtén todos los productos
-      response = await axios.get("https://springboottfg.onrender.com/products/", {
+      response = await axios.get("http://localhost:3000/products/", {
         headers: {
-          Authorization: `Bearer ${token}`,
         },
       });
     } else {
       response = await axios.get(
-        `https://springboottfg.onrender.com/products/state/${this.selectedState}`,
+        `http://localhost:3000/products/state/${this.selectedState}`,
         {
           headers: {
-            Authorization: `Bearer ${token}`,
           },
         }
       );
     }
     this.products = response.data;
+
   } catch (error) {
     console.error(error);
   }

@@ -13,7 +13,7 @@
         <div v-for="productOrder in order.productOrders" :key="productOrder.id" class="product-order">
           <!-- Imagen del producto -->
           <div class="product-image">
-            <img :src="productOrder.product.img" alt="Product Image">
+            <img :src="productOrder.product.imageUrl" alt="Product Image">
           </div>
           <!-- Información del producto -->
           <div class="product-info">
@@ -46,10 +46,10 @@ export default {
   methods: {
     async GetAllOrders() {
       const token = this.$store.state.token;
-      const response = await fetch(`https://springboottfg.onrender.com/users/mail/${this.$store.state.user}/`, {
+      const response = await fetch(`http://localhost:3000/users/mail/${this.$store.state.user.user.email}/`, {
         method: 'GET',
         headers: {
-          Authorization: `Bearer ${token}`,
+          
         },
       });
       const orders = await response.json();

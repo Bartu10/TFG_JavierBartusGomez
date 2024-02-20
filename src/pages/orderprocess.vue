@@ -47,18 +47,18 @@ export default {
     async createOrderAndProduct() {
         const token = this.$store.state.token;
         const headers = {
-        Authorization: `Bearer ${token}`,
+        
         'Content-Type': 'application/json',
         };
 
       try {
 
-        const userResponse = await axios.get(`https://springboottfg.onrender.com/users/mail/${this.$store.state.user}/`, { headers });
+        const userResponse = await axios.get(`http://localhost:3000/users/mail/${this.$store.state.user.user.email}/`, { headers });
 
         console.log("userResponseData",userResponse.data.id)
         console.log("price",this.total)
         console.log("fecha",this.fechaTexto)
-        const orderResponse = await axios.post('https://springboottfg.onrender.com/orders/create', {
+        const orderResponse = await axios.post('http://localhost:3000/orders/create', {
           fecha: this.fechaTexto, // Fecha de la Order
           price: this.total, // Precio de la Order
           userid: userResponse.data.id, // Objeto user
@@ -68,7 +68,7 @@ export default {
         const orderId = orderResponse.data.id; // Obtiene el ID de la Order creada
         for (let i = 0; i < this.cart.length; i++) {
           const element = this.cart[i];
-          const productOrderResponse = await axios.post('https://springboottfg.onrender.com/productsOrder/create', {
+          const productOrderResponse = await axios.post('http://localhost:3000/productsOrder/create', {
             orderid: orderId , // Objeto Order con el ID de la Order creada anteriormente
             productid: element.id, // Objeto Product con el ID del producto asociado al ProductOrder
             cantidad: element.quantity, // Cantidad del producto
