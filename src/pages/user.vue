@@ -108,6 +108,8 @@ export default {
     },
 
     async getImg() { //Obtengo la imagen del usuario
+      console.log("")
+      this.user.imageid = this.$store.state.user.user.imageid;
       console.log("imageid", this.user.imageid);
       const getImage = await axios.get(`https://backendnodetfg.onrender.com/images/${this.user.imageid}`, {
         headers: {
@@ -171,13 +173,13 @@ export default {
 
           console.log("imageid", imageid);
           // Hacer la solicitud PUT para actualizar la imagen del usuario
-          const editUI = await axios.put(`https://backendnodetfg.onrender.com/user/image/${this.$store.state.user.user.ima}/`, { "imageid": imageid }, {
+          const editUI = await axios.put(`https://backendnodetfg.onrender.com/user/image/${this.$store.state.user.user.id}/`, { "imageid": imageid }, {
             headers: {
               "Content-Type": "application/json",
               
             },
           });
-
+          console.log("editUI", editUI)
           console.log("editUI", editUI.data.imageid);
           // TODO: Aquí se debe cambiar la imagen del usuario
           const getImage = await axios.get(`https://backendnodetfg.onrender.com/images/${editUI.data.imageid}`, {
