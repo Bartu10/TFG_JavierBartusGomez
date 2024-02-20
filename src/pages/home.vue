@@ -69,7 +69,7 @@ export default {
     },
     async getProducts() {
       try {
-        const response = await axios.get('http://localhost:3000/products/lowestSum/low');
+        const response = await axios.get('https://backendnodetfg.onrender.com/products/lowestSum/low');
         this.products = response.data;
         console.log(this.products);
       } catch (error) {

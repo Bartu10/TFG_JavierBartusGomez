@@ -47,7 +47,9 @@
     </div>
 
     <!-- Botón para abrir/cerrar los filtros -->
-    <div :class="opener" @click="openFilters"></div>
+    <div :class="opener" @click="openFilters">
+    <img src="../img/54366.png" alt="Fútbol" :class="fitFlecha">
+    </div>
 
     <!-- Grid de productos -->
     <div class="grid">
@@ -114,9 +116,15 @@ export default {
     return Math.ceil(this.filteredProducts.length / this.pageSize);
   },
 
+
+
   opener() {
     // Determina la clase CSS para el componente openerDiv o cOpenerDiv según el estado de isOpen
     return this.isOpen ? "openerDiv" : "cOpenerDiv";
+  },
+
+  fitFlecha(){
+    return this.isOpen ? "flecha" : "cFlecha";
   },
 
   filters() {
@@ -203,7 +211,7 @@ export default {
   // Obtiene la lista de productos desde el servidor
   const token = this.$store.state.token;
   try {
-    const response = await axios.get("http://localhost:3000/products/", {
+    const response = await axios.get("https://backendnodetfg.onrender.com/products/", {
       headers: {
         
       },
@@ -237,14 +245,14 @@ export default {
       try {
         let response;
         if (this.selectedYear === "") {
-          response = await axios.get("http://localhost:3000/products/", {
+          response = await axios.get("https://backendnodetfg.onrender.com/products/", {
             headers: {
               
             },
           });
         } else {
           response = await axios.get(
-            `http://localhost:3000/products/year/${this.selectedYear}`,
+            `https://backendnodetfg.onrender.com/products/year/${this.selectedYear}`,
             {
               headers: {
                 
@@ -263,7 +271,7 @@ export default {
       const token = this.$store.state.token;
       try {
         const response = await axios.get(
-          `http://localhost:3000/products/retro/${this.retro}`,
+          `https://backendnodetfg.onrender.com/products/retro/${this.retro}`,
           {
             headers: {
               
@@ -282,14 +290,14 @@ export default {
       try {
         let response;
         if (this.selectedTeam === "") {
-          response = await axios.get("http://localhost:3000/products/", {
+          response = await axios.get("https://backendnodetfg.onrender.com/products/", {
             headers: {
               
             },
           });
         } else {
           response = await axios.get(
-            `http://localhost:3000/products/team/${this.selectedTeam}`,
+            `https://backendnodetfg.onrender.com/products/team/${this.selectedTeam}`,
             {
               headers: {
                 
@@ -308,13 +316,13 @@ export default {
     let response;
     if (this.selectedState === "") {
       // Si el estado seleccionado es "Todos", obtén todos los productos
-      response = await axios.get("http://localhost:3000/products/", {
+      response = await axios.get("https://backendnodetfg.onrender.com/products/", {
         headers: {
         },
       });
     } else {
       response = await axios.get(
-        `http://localhost:3000/products/state/${this.selectedState}`,
+        `https://backendnodetfg.onrender.com/products/state/${this.selectedState}`,
         {
           headers: {
           },
@@ -334,6 +342,40 @@ export default {
 <style lang="scss" scoped>
 
 @import '../scss/global.scss';
+
+@keyframes imgBig {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.3);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.flecha{
+  width: 20px;
+  height: 20px;
+  align-self: center;
+  padding-left: 10px;
+  transform: rotate(180deg);
+  animation: imgBig 1s infinite alternate;
+}
+
+
+.cFlecha{
+  width: 20px;
+  height: 20px;
+  align-self: center;
+  padding-left: 10px;
+
+  animation: imgBig 1s infinite alternate;
+
+}
+
+
 
 // Estilos para la paginación
 .pagination{
@@ -449,6 +491,8 @@ export default {
 
 // Estilos para el div de apertura de los filtros
 .openerDiv{
+  display: flex;
+  flex-direction: row;
   border: 10px;
   width: 50px;
   background-color: $secondaryGreen;
@@ -464,6 +508,8 @@ export default {
 
 // Estilos para el div de cierre de los filtros
 .cOpenerDiv{
+  display: flex;
+  flex-direction: row;
   border: 10px;
   width: 50px;
   background-color: $secondaryGreen;

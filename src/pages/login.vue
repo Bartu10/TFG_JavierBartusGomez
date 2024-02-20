@@ -43,7 +43,7 @@ export default {
                 "email": this.email,
                 "password": this.password,
             };
-        axios.post('http://localhost:3000/users/login', user)
+        axios.post('https://backendnodetfg.onrender.com/users/login', user)
             .then(response => {
                 console.log(response);
                 if(response.data == "Usuario no encontrado"){
@@ -53,7 +53,7 @@ export default {
                 }else{
                     this.$store.commit('setLogged', true);
                     this.$store.commit('setUser', response.data);
-                    this.$router.push('/home');
+                    this.$router.push('/');
                 }
             })
             // Realizar solicitud para obtener el token de autenticación

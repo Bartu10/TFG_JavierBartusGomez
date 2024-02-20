@@ -1,7 +1,7 @@
 <template>
   <div class="product-detail">
     <div class="product-image">
-      <img :src="productComplete.img" alt="Product Image">
+      <img :src="productComplete.imageUrl" alt="Product Image">
     </div>
     <div class="product-info">
       <h2 class="product-name">{{ productComplete.name }}</h2>
@@ -51,7 +51,7 @@ export default {
     // Función para obtener los detalles del producto desde el servidor
     async callProduct() {
       const token = this.$store.state.token;
-      const url = `http://localhost:3000/products/${this.$route.params.id}/`;
+      const url = `https://backendnodetfg.onrender.com/products/${this.$route.params.id}/`;
       const response = await fetch(url, {
         method: "GET",
         headers: {

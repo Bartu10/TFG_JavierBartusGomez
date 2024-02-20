@@ -88,7 +88,7 @@ export default {
             }
             const token = this.$store.state.token
             console.log(product)
-            const response = await fetch("http://localhost:3000/products/create", {
+            const response = await fetch("https://backendnodetfg.onrender.com/products/create", {
           method: "POST",
           headers: {
             

@@ -28,7 +28,7 @@ export default {
     methods: {
         async GetLastOrder() {
             const token = this.$store.state.token; // Obtiene el token del estado de la tienda
-            const response = await fetch(`http://localhost:3000/users/mail/${this.$store.state.user.user.email}/`, { // Realiza una solicitud HTTP para obtener los detalles del pedido
+            const response = await fetch(`https://backendnodetfg.onrender.com/users/mail/${this.$store.state.user.user.email}/`, { // Realiza una solicitud HTTP para obtener los detalles del pedido
                 method: 'GET',
                 headers: {
                      // Agrega el token de autenticación en los encabezados

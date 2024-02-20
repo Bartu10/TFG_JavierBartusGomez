@@ -92,7 +92,7 @@ export default {
       };
 
       const token = this.$store.state.token;    // Obtiene el token de autenticación del estado de la aplicación
-      const response = await fetch("http://localhost:3000/users/create", {
+      const response = await fetch("https://backendnodetfg.onrender.com/users/create", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
