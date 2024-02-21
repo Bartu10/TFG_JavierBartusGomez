@@ -46,23 +46,11 @@ export default {
 
     async createOrderAndProduct() {
       try {
-
-        const userResponse = await axios.get(`https://backendnodetfg.onrender.com/users/mail/${this.$store.state.user.user.email}/`, { headers });
-        const response = await fetch(`https://backendnodetfg.onrender.com/users/mail/${this.$store.state.user.user.email}`, {
-        method: "GET",
-        headers: {
-          
-        },
-      })
-        console.log(response)
-        console.log("userResponseData",userResponse)
-        console.log("price",this.total)
-        console.log("fecha",this.fechaTexto)
         const orderResponse = await axios.post('https://backendnodetfg.onrender.com/orders/', {
           fecha: this.fechaTexto, // Fecha de la Order
           price: this.total, // Precio de la Order
-          userid: userResponse.data.id, // Objeto user
-        }, { headers });
+          userid: this.$store.state.user.user.id, // Objeto user
+        }, { 'Content-Type': 'application/json' });
         
         
         const orderId = orderResponse.data.id; // Obtiene el ID de la Order creada
@@ -73,7 +61,7 @@ export default {
             productid: element.id, // Objeto Product con el ID del producto asociado al ProductOrder
             cantidad: element.quantity, // Cantidad del producto
             // Otros datos necesarios para crear el ProductOrder
-          }, { headers });
+          }, { 'Content-Type': 'application/json' });
           console.log(productOrderResponse.data);
           console.log(this.orders)
         }
