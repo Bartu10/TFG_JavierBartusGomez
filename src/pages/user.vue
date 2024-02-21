@@ -130,6 +130,7 @@ export default {
       this.edit = false
 
       const user = {
+        id: this.$store.state.user.user.id,
         name: this.user.name,
         email: this.user.email,
         username: this.user.username,
@@ -138,7 +139,7 @@ export default {
         imageid: this.$store.state.user.user.imageid,
       };
       console.log("user", user);
-      const editUser = await axios.put(`https://backendnodetfg.onrender.com/users/${this.$store.state.user.user}/`, user, {
+      const editUser = await axios.put(`https://backendnodetfg.onrender.com/users/${this.$store.state.user.user.id}/`, user, {
         headers: {
           "Content-Type": "application/json",
           
