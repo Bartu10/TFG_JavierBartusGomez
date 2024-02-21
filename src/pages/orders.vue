@@ -46,7 +46,7 @@ export default {
   methods: {
     async GetAllOrders() {
       const token = this.$store.state.token;
-      const response = await fetch(`https://backendnodetfg.onrender.com/users/mail/${this.$store.state.user.user.email}/`, {
+      const response = await fetch(`https://backendnodetfg.onrender.com/users/mail/${this.$store.state.user.user.email}`, {
         method: 'GET',
         headers: {
           
