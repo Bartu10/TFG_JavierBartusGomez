@@ -52,8 +52,19 @@ export default {
           
         },
       });
-      const orders = await response.json();
-      this.orders = orders.orders; // Asigna los pedidos obtenidos a la lista de pedidos
+      const user = await response.json();
+      const orders = await fetch(`https://backendnodetfg.onrender.com/orders/`, {
+        method: 'GET',
+        headers: {
+          
+        },
+      });
+
+      ordersList = await orders.json();
+
+      ordersList = ordersList.filter((order) => order.user === user.id);
+
+      this.orders = ordersList; // Asigna los pedidos obtenidos a la lista de pedidos
       this.orders.sort((a, b) => b.id - a.id); // Ordena los pedidos por ID de forma descendente
       console.log("orders", orders.orders);
       console.log("productOrder", this.orders);
