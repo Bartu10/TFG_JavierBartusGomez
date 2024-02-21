@@ -139,6 +139,7 @@ export default {
         imageid: this.$store.state.user.user.imageid,
       };
       console.log("user", user);
+      
       const editUser = await axios.put(`https://backendnodetfg.onrender.com/users/${this.$store.state.user.user.id}/`, user, {
         headers: {
           "Content-Type": "application/json",

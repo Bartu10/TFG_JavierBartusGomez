@@ -49,6 +49,7 @@
 export default {
   data() {
     return {
+      id: '',                 // Variable para almacenar el id del usuario
       name: '',               // Variable para almacenar el nombre del usuario
       username: '',           // Variable para almacenar el nombre de usuario
       email: '',              // Variable para almacenar el correo electrónico del usuario
@@ -59,7 +60,18 @@ export default {
   },
 
   methods: {
+
+    async getNewId(){
+      const users = await fetch("https://backendnodetfg.onrender.com/users");
+      const usersJson = await users.json();
+      console.log(usersJson)
+      const ultimoElemento = [...usersJson].pop();
+      return ultimoElemento.id + 1
+    },
+
+
     async register() {
+
       const emailRegex = /^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/;
       const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/;
       // Expresión regular para validar el nombre de usuario
@@ -82,7 +94,13 @@ export default {
     this.msg = "El nombre de usuario debe tener entre 3 y 16 caracteres y puede contener letras, números, guiones y guiones bajos";
     return;
   }
+      const obtainedId = await this.getNewId()
+
+  
+
+
       const user = {
+        id: obtainedId,
         name: this.name,                // Asigna el valor del nombre a la propiedad 'name' del objeto 'user'
         username: this.username,        // Asigna el valor del nombre de usuario a la propiedad 'username' del objeto 'user'
         email: this.email,              // Asigna el valor del correo electrónico a la propiedad 'email' del objeto 'user'
@@ -92,7 +110,7 @@ export default {
       };
 
       const token = this.$store.state.token;    // Obtiene el token de autenticación del estado de la aplicación
-      const response = await fetch("https://backendnodetfg.onrender.com/users/create", {
+      const response = await fetch("https://backendnodetfg.onrender.com/users/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -102,7 +120,8 @@ export default {
       });
 
       console.log(response);     // Muestra la respuesta en la consola
-      if (response.status == 200) {
+      if (response.status == 201) {
+        console.log(user)
         this.$router.push('/login');     // Redirecciona al usuario a la página de inicio de sesión si el registro fue exitoso
       }
     },
