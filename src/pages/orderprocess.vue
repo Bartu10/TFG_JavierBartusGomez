@@ -57,7 +57,7 @@ export default {
         console.log("Order creada", orderResponse)
         for (let i = 0; i < this.cart.length; i++) {
           const element = this.cart[i];
-          const productOrderResponse = await axios.post('https://backendnodetfg.onrender.com/productsOrder/', {
+          const productOrderResponse = await axios.post('https://backendnodetfg.onrender.com/productsOrders/', {
             order: orderId , // Objeto Order con el ID de la Order creada anteriormente
             product: element.id, // Objeto Product con el ID del producto asociado al ProductOrder
             cantidad: element.quantity, // Cantidad del producto
