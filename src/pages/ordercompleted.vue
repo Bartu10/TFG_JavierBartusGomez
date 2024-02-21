@@ -31,7 +31,7 @@ export default {
             const response = await fetch(`https://backendnodetfg.onrender.com/users/mail/${this.$store.state.user.user.email}/`, { // Realiza una solicitud HTTP para obtener los detalles del pedido
                 method: 'GET',
                 headers: {
-                    'Content-Type': 'application/json'                },
+                    'Content-Type': 'application/json'},
             });
             const orders = await response.json(); // Convierte la respuesta en formato JSON
             let highest = orders.orders[0]; // Establece el primer pedido como el más alto

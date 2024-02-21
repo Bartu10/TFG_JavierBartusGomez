@@ -49,16 +49,17 @@ export default {
         const orderResponse = await axios.post('https://backendnodetfg.onrender.com/orders/', {
           fecha: this.fechaTexto, // Fecha de la Order
           price: this.total, // Precio de la Order
-          userid: this.$store.state.user.user.id, // Objeto user
+          user: this.$store.state.user.user.id, // Objeto user
         }, { 'Content-Type': 'application/json' });
         
         
         const orderId = orderResponse.data.id; // Obtiene el ID de la Order creada
+        console.log("Order creada", orderResponse)
         for (let i = 0; i < this.cart.length; i++) {
           const element = this.cart[i];
-          const productOrderResponse = await axios.post('https://backendnodetfg.onrender.com/productsOrder/create', {
-            orderid: orderId , // Objeto Order con el ID de la Order creada anteriormente
-            productid: element.id, // Objeto Product con el ID del producto asociado al ProductOrder
+          const productOrderResponse = await axios.post('https://backendnodetfg.onrender.com/productsOrder/', {
+            order: orderId , // Objeto Order con el ID de la Order creada anteriormente
+            product: element.id, // Objeto Product con el ID del producto asociado al ProductOrder
             cantidad: element.quantity, // Cantidad del producto
             // Otros datos necesarios para crear el ProductOrder
           }, { 'Content-Type': 'application/json' });
