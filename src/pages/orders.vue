@@ -61,7 +61,20 @@ export default {
           'Content-Type': 'application/json',
         },
       });
+
       productOrders = await productOrders.json();
+
+      let products = await fetch('https://backendnodetfg.onrender.com/products', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      products = await products.json();
+
+
+      
       this.productOrders = productOrders;
 
       orders = orders.filter((order) => order.user === user.id);
@@ -70,6 +83,7 @@ export default {
         let lista = [];
         for (let pdOrder of this.productOrders) {
           if (od.id == pdOrder.order) {
+            pdOrder.product = products.find((p) => p.id == pdOrder.product);
             lista.push(pdOrder);
           }
         }
