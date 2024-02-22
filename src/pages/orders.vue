@@ -77,6 +77,7 @@ export default {
       }
 
       this.orders = orders;
+      console.log(this.orders);
     },
   },
 }
