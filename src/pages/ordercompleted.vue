@@ -27,21 +27,23 @@ export default {
     },
     methods: {
         async GetLastOrder() {
-            const token = this.$store.state.token; // Obtiene el token del estado de la tienda
-            const response = await fetch(`https://backendnodetfg.onrender.com/users/mail/${this.$store.state.user.user.email}`, { // Realiza una solicitud HTTP para obtener los detalles del pedido
+            const user = this.$store.state.user.user; // Obtiene el usuario actual del almacenamiento local
+            let orders = await fetch('https://backendnodetfg.onrender.com/orders', { // Realiza una solicitud GET a la API para obtener todos los pedidos
                 method: 'GET',
                 headers: {
-                    'Content-Type': 'application/json'},
+                    'Content-Type': 'application/json', // Establece el tipo de contenido de la solicitud
+                },
             });
-            const orders = await response.json(); // Convierte la respuesta en formato JSON
-            let highest = orders.orders[0]; // Establece el primer pedido como el más alto
-            // Itera sobre los pedidos restantes y encuentra el pedido con el ID más alto
-            for (let i = 1; i < orders.orders.length; i++) {
-                if (orders.orders[i].id > highest.id) {
-                    highest = orders.orders[i];
-                }
-            }
-            this.buy = highest; // Establece el pedido más alto como el pedido completado
+            orders = await response.json(); // Convierte la respuesta en formato JSON
+            
+            orders = orders.filter((order) => order.user === user.id); // Filtra los pedidos para obtener solo los del usuario actual
+            
+
+            const highestId = orders.reduce((maxId, order) => {
+              return order.id > maxId ? order.id : maxId;
+            }, 0);
+
+            this.buy = highestId; // Establece el pedido más alto como el pedido completado
         }
     }
 }
