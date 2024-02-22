@@ -1,7 +1,7 @@
 <template>
   <div class="order-history">
     <!-- Itera sobre cada pedido en la lista de pedidos -->
-    <div v-for="order in orders" :key="order" class="order-item">
+    <div v-for="order in orders" :key="order.id" class="order-item">
       <!-- Encabezado del pedido -->
       <div class="order-header">
         <h3>Pedido #{{ order.id }}</h3>
@@ -10,7 +10,7 @@
       <!-- Detalles del pedido -->
       <div class="order-details">
         <!-- Itera sobre cada producto en los pedidos de productos -->
-        <div v-for="productOrder in productOrders" :key="productOrder.id" class="product-order">
+        <div v-for="productOrder in order.productOrders" :key="productOrder.id" class="product-order">
           <!-- Imagen del producto -->
           <div class="product-image">
             <img :src="productOrder.product.imageUrl" alt="Product Image">
@@ -45,54 +45,43 @@ export default {
   },
 
   methods: {
-
-
     async GetAllOrders() {
       const user = this.$store.state.user.user;
-      console.log(user)
       let orders = await fetch('https://backendnodetfg.onrender.com/orders', {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
-        }
+        },
       });
       orders = await orders.json();
-      
+
       let productOrders = await fetch('https://backendnodetfg.onrender.com/productOrders', {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
-        }
+        },
       });
       productOrders = await productOrders.json();
       this.productOrders = productOrders;
 
-      
       orders = orders.filter((order) => order.user === user.id);
-      console.log("orders tras filter", orders)
-      for (let od in orders){
-        let lista = []
-        console.log("Solo 1 order",orders[od])
-        console.log("first orders", orders)
-        for (let pdOrder in this.productOrders){
-        if (orders[od].id == this.productOrders[pdOrder].order){
-          lista.push(this.productOrders[pdOrder])
-          console.log("Nuevo producto", this.productOrders[pdOrder])
+
+      for (let od of orders) {
+        let lista = [];
+        for (let pdOrder of this.productOrders) {
+          if (od.id == pdOrder.order) {
+            lista.push(pdOrder);
+          }
         }
-        orders[od].productOrders = lista
-      
+        od.productOrders = lista;
       }
-    }
-      console.log("orders", orders)
-      //this.orders = ordersList; // Asigna los pedidos obtenidos a la lista de pedidos
-      this.orders.sort((a, b) => b.id - a.id); // Ordena los pedidos por ID de forma descendente
 
-      
-
+      this.orders = orders;
     },
   },
 }
 </script>
+
 
 <style lang="scss">
 @import '../scss/global.scss';
