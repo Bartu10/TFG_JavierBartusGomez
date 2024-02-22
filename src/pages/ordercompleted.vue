@@ -34,7 +34,7 @@ export default {
                     'Content-Type': 'application/json', // Establece el tipo de contenido de la solicitud
                 },
             });
-            orders = await response.json(); // Convierte la respuesta en formato JSON
+            orders = await orders.json(); // Convierte la respuesta en formato JSON
             
             orders = orders.filter((order) => order.user === user.id); // Filtra los pedidos para obtener solo los del usuario actual
             
