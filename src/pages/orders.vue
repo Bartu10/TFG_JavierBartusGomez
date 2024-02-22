@@ -75,7 +75,7 @@ export default {
         console.log("Solo 1 order",orders[od])
         console.log("first orders", orders)
         for (let pdOrder in this.productOrders){
-        if (orders[od].id == pdOrder.order){
+        if (orders[od].id == this.productOrders[pdOrder].order){
           lista.push(this.productOrders[pdOrder])
           console.log("Nuevo producto", this.productOrders[pdOrder])
         }
