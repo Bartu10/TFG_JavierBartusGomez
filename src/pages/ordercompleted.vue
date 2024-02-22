@@ -1,6 +1,6 @@
 <template>
     <div class="completed">
-    <p>¡Felicidades! Has completado con éxito el pedido número {{ this.buy.id }}. Agradecemos tu preferencia y esperamos que disfrutes de tu compra. Si tienes alguna pregunta o necesitas asistencia adicional, no dudes en contactarnos. ¡Esperamos verte nuevamente pronto!</p>
+    <p>¡Felicidades! Has completado con éxito el pedido número {{ this.buy }}. Agradecemos tu preferencia y esperamos que disfrutes de tu compra. Si tienes alguna pregunta o necesitas asistencia adicional, no dudes en contactarnos. ¡Esperamos verte nuevamente pronto!</p>
     
     <div class="buttons">
         <button class="btn" @click="this.$router.push('/')">Volver a la tienda</button>
@@ -44,6 +44,7 @@ export default {
             }, 0);
 
             this.buy = highestId; // Establece el pedido más alto como el pedido completado
+            console.log(this.buy)
         }
     }
 }
